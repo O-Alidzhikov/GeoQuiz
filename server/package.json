@@ -1,0 +1,19 @@
+{
+  "name": "nodeserver",
+  "version": "1.0.0",
+  "description": "this is my server",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "/"
+  },
+  "author": "Oktay",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongoose": "^8.7.2"
+  }
+}
