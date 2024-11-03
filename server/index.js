@@ -5,6 +5,7 @@ const dbConnect = require("./config/dbConfig");
 
 
 // Local variables
+const PORT = 2000;
 const app = express();
 
 // Configs
