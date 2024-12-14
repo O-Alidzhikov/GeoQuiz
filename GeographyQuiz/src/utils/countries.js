@@ -1,9 +1,7 @@
 export const europeanCountries = [
     "Albania", 
-    "Andorra", 
     "Armenia", 
-    "Austria", 
-    "Azerbaijan", 
+    "Austria", , 
     "Belarus", 
     "Belgium", 
     "Bosnia and Herzegovina", 
@@ -24,12 +22,9 @@ export const europeanCountries = [
     "Italy", 
     "Kosovo", 
     "Latvia", 
-    //"Liechtenstein", 
     "Lithuania", 
     "Luxembourg", 
-    //"Malta", 
     "Moldova", 
-    //"Monaco", 
     "Montenegro", 
     "Netherlands", 
     "North Macedonia", 
@@ -37,8 +32,6 @@ export const europeanCountries = [
     "Poland", 
     "Portugal", 
     "Romania", 
-    "Russia", 
-    //"San Marino", 
     "Serbia", 
     "Slovakia", 
     "Slovenia", 
@@ -48,6 +41,5 @@ export const europeanCountries = [
     "Turkey", 
     "Ukraine", 
     "United Kingdom", 
-    //"Vatican City"
   ];
   

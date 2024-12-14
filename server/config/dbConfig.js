@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { URL } = require("./../constants");
+const dbURL = "mongodb://localhost:27017/GeoQuizDB";
 
 async function dbConnect() {
   await mongoose.connect(URL);
