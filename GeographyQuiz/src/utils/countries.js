@@ -1,7 +1,7 @@
 export const europeanCountries = [
     "Albania", 
     "Armenia", 
-    "Austria", , 
+    "Austria",
     "Belarus", 
     "Belgium", 
     "Bosnia and Herzegovina", 

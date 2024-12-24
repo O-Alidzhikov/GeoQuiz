@@ -22,20 +22,16 @@ export default function Quiz() {
         if (e.target.tagName === 'path') {
             const clickedCountry = e.target.getAttribute('name'); 
             console.log(clickedCountry)
-
-            
             if (clickedCountry === currentCountry) {
                 setCorrectCount(correctCount + 1);  
             } else {
                 setWrongCount(wrongCount + 1);      
             }
-
-            
             if (currentIndex < iteratedCountries.length - 1) {
                 const newIndex = currentIndex + 1;
                 setCurrentIndex(newIndex);
                 setCurrentCountry(iteratedCountries[newIndex]);
-            } else {
+            } else if(currentIndex === iteratedCountries.length - 1){
                 alert("Quiz Completed!");
                 setCorrectCount(0);
                 setWrongCount(0);
@@ -47,8 +43,8 @@ export default function Quiz() {
     return (
         <>
             <div className="counter">
-                <p>{correctCount}/45 correct answers</p>
-                <p>{wrongCount}/45 wrong answers</p>
+                <p>{correctCount}/41 correct answers</p>
+                <p>{wrongCount}/41 wrong answers</p>
                 <p>Select the country: {currentCountry}</p>
             </div>
         <body className="europe" >
