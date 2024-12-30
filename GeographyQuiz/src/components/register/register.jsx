@@ -3,16 +3,16 @@ import './register.css';
 import * as userService from "../../services/userService";
 
 function Register() {
-    const [name, setName] = useState('');
+    const [username, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
 
     const registerSubmitHandler = async (e) => {
-        console.log(name,email,password,repeatPassword)
+        console.log(username,email,password,repeatPassword)
         e.preventDefault();
         try {
-            const response = await userService.register(name,email, password, repeatPassword);
+            const response = await userService.register(username,email, password, repeatPassword);
             console.log('Registration successful:', response);
             
         } catch (error) {

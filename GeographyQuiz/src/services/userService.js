@@ -22,8 +22,8 @@ export async function login(email, password) {
     }
   }
   
-  export async function register(name, email, password, repeatpassword) {
-    const registerData = {name, email, password, repeatpassword };
+  export async function register(username, email, password, repeatpassword) {
+    const registerData = {username, email, password, repeatpassword };
     
     try {
       console.log(registerData)

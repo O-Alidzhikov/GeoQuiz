@@ -4,13 +4,13 @@ const userService = require("../services/userService");
 
 
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
-  console.log( name, email, password)
+  const { username, email, password } = req.body;
+  console.log( username, email, password)
 
 
-  await userService.register({ name, email, password });
+  await userService.register({ username, email, password });
 
-  // res.redirect("/users/login");
+
 });
 
 
