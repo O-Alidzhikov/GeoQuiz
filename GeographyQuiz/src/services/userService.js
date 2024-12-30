@@ -1,4 +1,4 @@
-const baseUrl = "http://127.0.0.1:5173/users";
+const baseUrl = "http://localhost:2000";
 const token = localStorage.getItem("accessToken")
 
 export async function login(email, password) {
@@ -22,10 +22,11 @@ export async function login(email, password) {
     }
   }
   
-  export async function register(email, password) {
-    const registerData = { email, password };
+  export async function register(name, email, password, repeatpassword) {
+    const registerData = {name, email, password, repeatpassword };
     
     try {
+      console.log(registerData)
       const response = await fetch(`${baseUrl}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

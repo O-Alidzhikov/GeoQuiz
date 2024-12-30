@@ -1,13 +1,16 @@
 import React from 'react';
 import './login.css';
-import { useForm } from "./hooks/useForm"
+ // import { useForm } from "../../hooks/useForm"
 
 function Login() {
 
-
-    const {values, onChange, onSubmit} = useForm(loginSubmitHandler ,  {
+    const loginKeys = {
+        LoginEmail : "email",
+        LoginPassword : "password"
+    }
+ //const {values, onChange, onSubmit} = useForm(loginSubmitHandler ,  {
         
-    })
+  // })
 
     
     return (

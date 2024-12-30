@@ -2,6 +2,8 @@
 const express = require("express");
 const expressConfig = require("./config/expressConfig");
 const dbConnect = require("./config/dbConfig");
+const cors = require('cors');
+const router = require("./router"); 
 
 
 // Local variables
@@ -10,7 +12,8 @@ const app = express();
 
 // Configs
 expressConfig(app);
-
+app.use(cors())
+app.use("/", router); // Add this line to connect the router
 
 // Connecting to the database
 dbConnect()
