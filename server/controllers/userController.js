@@ -15,16 +15,15 @@ router.post("/register", async (req, res) => {
 
 
  router.post("/login", async (req, res) => {
-   const { username, password } = req.body;
-  const token = await userService.login(username, password);
+   const { email, password } = req.body;
+  const token = await userService.login(email, password);
 
   res.cookie("auth", token, { httpOnly: true });
-  res.redirect("/");
+ 
 });
 
 router.get("/logout", (req, res) => {
   res.clearCookie("auth");
-  res.redirect("/");
 });
 
 module.exports = router;
