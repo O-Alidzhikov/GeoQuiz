@@ -3,6 +3,7 @@ const token = localStorage.getItem("accessToken")
 
 export async function login(email, password) {
     const loginData = { email, password };
+    console.log(loginData)
     
     try {
       const response = await fetch(`${baseUrl}/login`, {
