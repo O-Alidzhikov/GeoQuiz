@@ -14,13 +14,22 @@ router.post("/register", async (req, res) => {
 });
 
 
- router.post("/login", async (req, res) => {
+ router.post("/login", async (req, res,next) => {
    const { email, password } = req.body;
-   console.log(email, password)
+   
   const token = await userService.login(email, password);
+  console.log(token)
 
-  res.cookie("auth", token, { httpOnly: true });
- 
+
+  res.cookie("auth", token, { 
+    httpOnly: true, 
+    secure: false, 
+    sameSite: 'none', 
+    path: '/',        
+  });
+  console.log("Cookie set:", res.getHeaders()['set-cookie']); 
+  res.status(200).json({token:token});
+  next();
 });
 
 router.get("/logout", (req, res) => {

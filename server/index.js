@@ -12,7 +12,10 @@ const app = express();
 
 // Configs
 expressConfig(app);
-app.use(cors())
+app.use(cors({
+  origin: "http://localhost:5173", // Your React app's URL
+  credentials: true,     
+}))
 app.use("/", router); // Add this line to connect the router
 
 // Connecting to the database

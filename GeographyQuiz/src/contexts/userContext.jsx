@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
+import Cookies from 'js-cookie';
 import * as userService from "../services/userService";
 
 export const UserContext = createContext();
@@ -8,11 +9,10 @@ const AuthProvider = ({ children }) => {
 
   async function loginSubmitHandler(values) {
     try {
-      const response = await userService.login(values.email, values.password);
-      if (response.ok) {
-        setIsAuthenticated(true);
-      }
+      const response = await userService.login(values.email, values.password,);
       console.log("Login successful:", response);
+      Cookies.set('auth-token', response.token, { expires: 7 }); 
+      setIsAuthenticated(true);
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
       );
       console.log(response)
 
-      // localStorage.setItem("accessToken", result.accessToken)
+       localStorage.setItem("accessToken", result.accessToken)
       if (response.ok) {
         setIsAuthenticated(true);
       }

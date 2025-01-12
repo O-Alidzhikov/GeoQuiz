@@ -16,12 +16,12 @@ exports.register = async (userData) => {
 exports.login = async (email, password) => {
   const user = await User.findOne({ email });
 
-  // Validate email
+ 
   if (!user) {
     throw new Error("Invalid username or password!");
   }
 
-  // Validate password
+  
   const isValid = await bcrypt.compare(password, user.password);
   if (!isValid) {
     throw new Error("Invalid username or password!");
@@ -33,13 +33,9 @@ exports.login = async (email, password) => {
   };
 
   try {
-    // If the SECRET is a hexadecimal string, decode it
-    const secretKey = Buffer.from(SECRET, "hex");
-    
-    // Generate the token
-    const token = await jwt.sign(payload, secretKey, { algorithm: "HS256", expiresIn: "3d" });
+    const token = await jwt.sign(payload, SECRET, { expiresIn: "3d" });
     console.log(token)
-    console.log("successful login!")
+    console.log("Successful login!");
     return token;
   } catch (err) {
     console.error("Error signing the JWT:", err.message);
