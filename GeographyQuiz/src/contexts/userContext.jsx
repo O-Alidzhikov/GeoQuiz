@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
+import { useNavigate } from "react-router";
 import Cookies from 'js-cookie';
 import * as userService from "../services/userService";
 
@@ -6,12 +7,14 @@ export const UserContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate()
 
   async function loginSubmitHandler(values) {
     try {
       const response = await userService.login(values.email, values.password,);
       console.log("Login successful:", response);
       Cookies.set('auth-token', response.token, { expires: 7 }); 
+      console.log(isAuthenticated)
       setIsAuthenticated(true);
     } catch (error) {
       console.error("Login failed:", error);
@@ -38,8 +41,8 @@ const AuthProvider = ({ children }) => {
   };
 
   const logoutHandler = () => {
-    setAuth({});
-    localStorage.removeItem("accessToken");
+    setIsAuthenticated(false);
+    Cookies.remove("auth-token");
     navigate("/");
   };
 

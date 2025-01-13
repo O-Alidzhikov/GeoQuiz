@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  res.clearCookie("auth");
+  res.clearCookie("auth-token");
 });
 
 module.exports = router;

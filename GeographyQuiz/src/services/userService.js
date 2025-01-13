@@ -1,5 +1,6 @@
 const baseUrl = "http://localhost:2000";
-const token = localStorage.getItem("accessToken")
+
+// const cookie = Cookies.get('user');
 
 export async function login(email, password) {
     const loginData = { email, password };
@@ -49,14 +50,14 @@ export async function login(email, password) {
 
 
   export async function logout() {
-    const token = localStorage.getItem("accessToken");
+    const cookie = Cookies.get('user');
     
     try {
       const response = await fetch(`${baseUrl}/logout`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'X-Authorization': token
+          'X-Authorization': cookie
         }
       });
       
