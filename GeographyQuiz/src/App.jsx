@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useContext } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 import AuthProvider from './contexts/userContext';
@@ -7,11 +7,13 @@ import Quiz from './components/eu/eu'
 import Login from './components/login/login'
 import Register from './components/register/register';
 import Logout from './components/logout/logout';
+import { UserContext } from './contexts/userContext';
 
 
-
+ 
 
 function App() {
+
   return (
     <>
       <AuthProvider>

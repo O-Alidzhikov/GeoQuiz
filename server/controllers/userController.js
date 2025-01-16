@@ -27,7 +27,7 @@ router.post("/register", async (req, res) => {
     sameSite: 'none', 
     path: '/',        
   });
-  console.log("Cookie set:", res.getHeaders()['set-cookie']); 
+
   res.status(200).json({token:token});
   next();
 });

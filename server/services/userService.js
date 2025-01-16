@@ -33,7 +33,7 @@ exports.login = async (email, password) => {
   };
 
   try {
-    const token = await jwt.sign(payload, SECRET, { expiresIn: "3d" });
+    const token = await jwt.sign(payload, SECRET, { expiresIn: "7d" });
     console.log(token)
     console.log("Successful login!");
     return token;

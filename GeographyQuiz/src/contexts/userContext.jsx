@@ -12,10 +12,11 @@ const AuthProvider = ({ children }) => {
   async function loginSubmitHandler(values) {
     try {
       const response = await userService.login(values.email, values.password,);
-      console.log("Login successful:", response);
+      console.log(response);
+      setIsAuthenticated(response)
       Cookies.set('auth-token', response.token, { expires: 7 }); 
-      console.log(isAuthenticated)
-      setIsAuthenticated(true);
+     
+     
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -30,7 +31,7 @@ const AuthProvider = ({ children }) => {
       );
       console.log(response)
 
-       localStorage.setItem("accessToken", result.accessToken)
+      // localStorage.setItem("accessToken", result.accessToken)
       if (response.ok) {
         setIsAuthenticated(true);
       }
