@@ -26,6 +26,7 @@ export async function login(email, password) {
   }
   
   export async function register(username, email, password, repeatpassword) {
+    const highScore = 0;
     const registerData = {username, email, password, repeatpassword };
     
     try {

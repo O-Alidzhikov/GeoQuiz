@@ -4,11 +4,12 @@ const userService = require("../services/userService");
 
 
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password,  } = req.body;
   console.log( username, email, password)
 
+  const highScore = 0;
 
-  await userService.register({ username, email, password });
+  await userService.register({ username, email, password, highScore });
 
 
 });
