@@ -12,8 +12,8 @@ const AuthProvider = ({ children }) => {
   async function loginSubmitHandler(values) {
     try {
       const response = await userService.login(values.email, values.password,);
-      console.log(response);
-      setIsAuthenticated(response)
+      console.log(response.user);
+      setIsAuthenticated(response.user)
       Cookies.set('auth-token', response.token, { expires: 7 }); 
      
      
@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
     logoutHandler,
     username: isAuthenticated.username,
     email: isAuthenticated.email,
-    password: isAuthenticated.password,
+    // password: isAuthenticated.password,
   };
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
 };

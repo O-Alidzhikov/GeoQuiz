@@ -16,6 +16,8 @@ exports.register = async (userData) => {
 exports.login = async (email, password) => {
   const user = await User.findOne({ email });
 
+  
+
  
   if (!user) {
     throw new Error("Invalid username or password!");
@@ -36,7 +38,9 @@ exports.login = async (email, password) => {
     const token = await jwt.sign(payload, SECRET, { expiresIn: "7d" });
     console.log(token)
     console.log("Successful login!");
-    return token;
+    return {token: token,
+            user: user
+    };
   } catch (err) {
     console.error("Error signing the JWT:", err.message);
     throw new Error("Failed to generate authentication token.");

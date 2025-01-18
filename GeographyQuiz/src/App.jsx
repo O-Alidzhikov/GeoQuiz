@@ -1,5 +1,5 @@
-// import { useContext } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom';
+
+import { Routes, Route } from 'react-router-dom';
 
 import AuthProvider from './contexts/userContext';
 import Header from './components/header/home/header'
@@ -7,7 +7,7 @@ import Quiz from './components/eu/eu'
 import Login from './components/login/login'
 import Register from './components/register/register';
 import Logout from './components/logout/logout';
-import { UserContext } from './contexts/userContext';
+
 
 
  
