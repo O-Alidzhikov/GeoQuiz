@@ -1,6 +1,6 @@
 import { europeanCountries } from "../../utils/countries";
 import { shuffleArray } from "../../utils/arrRandomizer";
-import CountDown from "./timer/CountDown";
+import CountDown from "../../utils/CountDown";
 import "./eu.css";
 import React, { useEffect, useState } from "react";
 
