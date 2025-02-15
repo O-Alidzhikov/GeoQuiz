@@ -14,7 +14,7 @@ const {isAuthenticated , username} = useContext(UserContext)
             <h2>{isAuthenticated && username}</h2>
            
             <nav>
-                <Link to="/quiz">Quiz</Link>
+                <Link to="/map-quizzes">Quizzes</Link>
 
                 <div id="user">
                     <Link to="/quizzes">Do More Quizzes</Link>
