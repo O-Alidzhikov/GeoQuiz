@@ -92,4 +92,21 @@ export const europeanCountries = [
     "Vietnam",
     "Yemen"
   ]
+
+
+
+  export const southAmericanCountries = [
+    "Argentina",
+    "Bolivia",
+    "Brazil",
+    "Chile",
+    "Colombia",
+    "Ecuador",
+    "Guyana",
+    "Paraguay",
+    "Peru",
+    "Suriname",
+    "Uruguay",
+    "Venezuela"
+];
   

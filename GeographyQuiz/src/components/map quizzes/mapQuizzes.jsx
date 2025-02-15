@@ -19,7 +19,13 @@ export default function MapQuizzes() {
                         <Link to="/asia-quiz" className="map-link">Play the map of Asia here!</Link>
                     </button>
                 </div>
-                <div className="quizz-map-box">hello from mapQuizzes</div>
+                <div className="quizz-map-box">
+                    <h2>Map Of South America</h2>
+                    <p>Do you know all the countries of South America? Test your knowledge in this quiz!</p>
+                    <button className="map-button">
+                        <Link to="/south-america-quiz" className="map-link">Play the map of South America here!</Link>
+                    </button>
+                </div>
                 <div className="quizz-map-box">hello from mapQuizzes</div>
                 <div className="quizz-map-box">hello from mapQuizzes</div>
             </div>
