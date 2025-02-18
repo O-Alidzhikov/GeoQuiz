@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
       console.log(response.user);
       setIsAuthenticated(response.user)
       Cookies.set('auth-token', response.token, { expires: 7 }); 
+      navigate("/")
      
      
     } catch (error) {
@@ -27,15 +28,18 @@ const AuthProvider = ({ children }) => {
         values.username,
         values.email,
         values.password,
-        values.repeatPassword
+        values.repeatPassword 
       );
-      console.log(response)
+      console.log("this is the response" ,response.user)
+      navigate("/login")
 
       // localStorage.setItem("accessToken", result.accessToken)
+      
       if (response.ok) {
         setIsAuthenticated(true);
+        console.log("Registration successful:", response);
       }
-      console.log("Registration successful:", response);
+      
     } catch (error) {
       console.error("Registration failed:", error);
     }

@@ -36,6 +36,8 @@ export async function login(email, password) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(registerData)
       });
+
+      console.log("Raw Response:", response)
       
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -67,7 +69,7 @@ export async function login(email, password) {
         throw new Error(`Error: ${response.status} ${response.statusText} - ${errorData.message}`);
       }
       
-      return {};
+      return await response.json();
     } catch (error) {
       console.error('Error logging out:', error);
       throw error;

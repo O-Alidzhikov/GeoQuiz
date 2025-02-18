@@ -33,7 +33,7 @@ export default function  Quizes() {
   useEffect(() => {
     let neededQuestion = questions.find(({question1}) => question1 === "What is the capital of France?");
     setCurrentQuestion(neededQuestion)
-    console.logggg(currentQuestion)
+    console.log(currentQuestion)
     }, [currentQuestion]);
  
 

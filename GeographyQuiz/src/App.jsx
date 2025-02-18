@@ -7,6 +7,7 @@ import Home from './components/home/Home';
 import Quiz from './components/eu/eu'
 import Asia from './components/asia/asia';
 import SouthAmerica from './components/south-america/southAmerica';
+import Africa from './components/africa/africa';
 import Login from './components/login/login'
 import Register from './components/register/register';
 import Logout from './components/logout/logout';
@@ -33,6 +34,7 @@ function App() {
           <Route path="/map-quizzes" element={<MapQuizzes />}></Route>
           <Route path="/asia-quiz" element={<Asia />}></Route>
           <Route path="/south-america-quiz" element={<SouthAmerica />}></Route>
+          <Route path="/africa=quiz" element={<Africa />}></Route>
           <Route path="/quizzes" element={<Quizes />}></Route>
         </Routes>
       </AuthProvider>
