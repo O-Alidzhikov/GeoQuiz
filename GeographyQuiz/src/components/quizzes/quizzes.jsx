@@ -46,16 +46,23 @@ export default function  Quizes() {
       <div className="question-count">
         <span>Question 1</span>/3
       </div>
-      <div className="question-text">
-            What is the capital of France?
+        <h5>What is the capital of Paris</h5>
+    </div>
+      <div className="answer-section">
+        <button className="answer-button">London</button>
+        <button className="answer-button">Paris</button>
       </div>
-    </div>
-    <div className="answer-section">
-      <button className="answer-button">London</button>
-      <button className="answer-button">Paris</button>
-      <button className="answer-button">Berlin</button>
-      <button className="answer-button">Madrid</button>
-    </div>
+    
+      <div className="answer-section">
+        <button className="answer-button">London</button>
+        <button className="answer-button">Paris</button>
+      </div>
+
+      <div className="movement-buttons">
+        <button className="previous-btn">Previous</button>
+        <button className="next-btn">Next</button>
+        <button className="give-up-btn">Give up</button>
+      </div>
   </div>
 </div>
   );
