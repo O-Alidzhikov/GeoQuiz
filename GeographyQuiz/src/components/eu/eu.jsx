@@ -4,7 +4,7 @@ import CountDown from "../../utils/CountDown";
 import "./eu.css";
 import React, { useEffect, useState } from "react";
 
-export default function Quiz() {
+export default function Europe() {
   function startGame() {
     setIsGameOn(true);
     const shuffledCountries = shuffleArray(europeanCountries);

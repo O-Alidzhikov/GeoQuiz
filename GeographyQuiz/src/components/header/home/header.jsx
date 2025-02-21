@@ -7,7 +7,7 @@ export default function Header() {
 
 const {isAuthenticated , username} = useContext(UserContext)
 
-        console.log(username)
+       
     return (
         <header className='header'>
             <h1><Link className="home" to="/">Home</Link></h1>
