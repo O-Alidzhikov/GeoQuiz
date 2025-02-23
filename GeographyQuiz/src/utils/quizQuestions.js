@@ -1,8 +1,8 @@
 
 export const quiz1Questions = [
-    {
+    {   
         question: "Do you like pizza?",
-        optionA:"Yes i do!",
+        optionA: "Yes i do",
         optionB:"No i dont",
         optionC: "I make my own!",
         optionD: "Is that even a question?!",
@@ -10,7 +10,7 @@ export const quiz1Questions = [
     },
     {
         question: "What is the Capital of France",
-        optionA:"Paris",
+        optionA: "Paris",
         optionB:"London",
         optionC: "Berlin",
         optionD: "Moscow",
@@ -22,6 +22,6 @@ export const quiz1Questions = [
         optionB:"Japan",
         optionC: "USA",
         optionD: "Germany",
-        answer: "Yes i do"
+        answer: "USA"
     },
 ]

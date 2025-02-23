@@ -1,62 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import "./quiz.css";
-import {quiz1Questions} from "../../utils/quizQuestions"
+import { quiz1Questions } from "../../utils/quizQuestions";
+import Questions from './questions/questions';
 
+export default function Quiz() {
+  const [currentQuestion, setCurrentQuestion] = useState({});
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [questions, setQuestions] = useState(quiz1Questions);
+  const [score, setScore] = useState(0);
+  const [showScore, setShowScore] = useState(false);
 
-export default function  Quiz() {
- let [currentQuestion, setCurrentQuestion] = useState({});
- let [questionIndex, setQuestionIndex] = useState(0);
- const [questions, setQuestions] = useState(quiz1Questions);
- let [score, setScore] = useState(0);
- let [showScore, setShowScore] = useState(false);
- let [previousQuestion, setPreviousQuestion] = useState({})
- let [nextQuestion, setNextQuestion] = useState({})
+  useEffect(() => {
+    if (questions.length > 0) {
+      setCurrentQuestion(questions[questionIndex]);
+    }
+  }, [questionIndex, questions]);
 
-
-
- useEffect(() => {
-  if (questions.length > 0) {
-    setCurrentQuestion(questions[questionIndex]);
-    console.log(questions[questionIndex].question); 
-    setQuestionIndex = questionIndex + 1
-    console.log(questionIndex)
+  function handleQuizClick(e) {
+    if (e.target.textContent === currentQuestion.answer) {
+      setScore((score) => score + 1);
+    }
   }
-}, [questions]);
 
-  function handleQuizClick(e){
-    console.log("you clicked something!")
-    console.log(e.target)
+  function handleNextClick() {
+    setQuestionIndex((prevIndex) => {
+      const newIndex = prevIndex + 1;
+      if (newIndex < questions.length) {
+        return newIndex;
+      }
+      return prevIndex; 
+    });
   }
+
+  function handlePreviousClick() {
+    setQuestionIndex((prevIndex) => {
+      const newIndex = Math.max(0, prevIndex - 1);
+      return newIndex;
+    });
+  }
+
+  
 
   return (
     <div className="quiz-container">
-  <div className="quiz-box">
-    <div className="question-section">
-      <div className="question-count">
-        <span>Question 1</span>/3
-      </div>
-        <h5>{currentQuestion.question}</h5>
-    </div>
-    <div className="all-options" onClick={handleQuizClick}>
-      <div className="answer-section">
-        <button className="answer-button">{currentQuestion.optionA}</button>
-        <button className="answer-button">{currentQuestion.optionB}</button>
-      </div>
-    
-      <div className="answer-section">
-        <button className="answer-button">{currentQuestion.optionC}</button>
-        <button className="answer-button">{currentQuestion.optionD}</button>
-      </div>
-      </div>
+      {questions.length > 0 && (
+        <Questions
+          key={currentQuestion.question}
+          {...currentQuestion}
+          handleQuizClick={handleQuizClick}
+          handleNextClick={handleNextClick}
+          handlePreviousClick={handlePreviousClick}
+        />
+      )}
 
-      <div className="movement-buttons">
-        <button className="previous-btn">Previous</button>
-        <button className="next-btn">Next</button>
-        <button className="give-up-btn">Give up</button>
-      </div>
-  </div>
-</div>
+      {questions.length <= 0 && <h5>There has been an error getting your questions</h5>}
+    </div>
   );
 }
-
- 
