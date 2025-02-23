@@ -4,10 +4,11 @@ export default function Questions({
     optionB,
     optionC,
     optionD,
-    answer,
     handleQuizClick,
     handleNextClick,
-    handlePreviousClick
+    handlePreviousClick,
+    userAnswer,
+   
   }) {
     return (
       <div className="quiz-box">
@@ -19,18 +20,42 @@ export default function Questions({
         </div>
         <div className="all-options">
           <div className="answer-section">
-            <button className="answer-button" onClick={handleQuizClick}>{optionA}</button>
-            <button className="answer-button" onClick={handleQuizClick}>{optionB}</button>
+            <button
+              className={`answer-button ${userAnswer === optionA ? 'selected' : ''}`}
+              onClick={handleQuizClick}
+            >
+              {optionA}
+            </button>
+            <button
+              className={`answer-button ${userAnswer === optionB ? 'selected' : ''}`}
+              onClick={handleQuizClick}
+            >
+              {optionB}
+            </button>
           </div>
           <div className="answer-section">
-            <button className="answer-button" onClick={handleQuizClick}>{optionC}</button>
-            <button className="answer-button" onClick={handleQuizClick}>{optionD}</button>
+            <button
+              className={`answer-button ${userAnswer === optionC ? 'selected' : ''}`}
+              onClick={handleQuizClick}
+            >
+              {optionC}
+            </button>
+            <button
+              className={`answer-button ${userAnswer === optionD ? 'selected' : ''}`}
+              onClick={handleQuizClick}
+            >
+              {optionD}
+            </button>
           </div>
         </div>
   
         <div className="movement-buttons">
-          <button className="previous-btn" onClick={handlePreviousClick}>Previous</button>
-          <button className="next-btn" onClick={handleNextClick}>Next</button>
+          <button className="previous-btn" onClick={handlePreviousClick}>
+            Previous
+          </button>
+          <button className="next-btn" onClick={handleNextClick}>
+            Next
+          </button>
           <button className="give-up-btn">Give up</button>
         </div>
       </div>
