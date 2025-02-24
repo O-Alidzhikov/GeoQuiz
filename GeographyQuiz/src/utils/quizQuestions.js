@@ -1,12 +1,12 @@
 
 export const quiz1Questions = [
     {   
-        question: "Who has the best GYAAT?",
-        optionA: "Makima",
-        optionB:"ZeroTwo",
-        optionC: "Alya",
-        optionD: "It's subjective you bonobo",
-        answer: "Makima"
+        question: "What is the main economic model in the Western World",
+        optionA: "Planned Economy",
+        optionB:"Market Economy",
+        optionC: "Corporatism",
+        optionD: "Feudalism",
+        answer: "Market Economy"
     },
     {
         question: "What is the Capital of France",

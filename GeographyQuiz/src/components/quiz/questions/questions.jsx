@@ -7,6 +7,7 @@ export default function Questions({
     handleQuizClick,
     handleNextClick,
     handlePreviousClick,
+    handleHintClick,
     userAnswer,
    
   }) {
@@ -15,6 +16,7 @@ export default function Questions({
         <div className="question-section">
           <div className="question-count">
             <span>Question 1</span>/3
+            <button className="hint-button" onClick={handleHintClick}> hint</button>
           </div>
           <h5>{question}</h5>
         </div>

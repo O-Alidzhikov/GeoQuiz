@@ -55,6 +55,18 @@ export default function Quiz() {
     });
   }
 
+  function handleHintClick() {
+    let wrongAnswers = document.querySelectorAll(".answer-button");
+  
+    for (let answer of wrongAnswers) {
+      if (answer.textContent !== currentQuestion.answer) {
+        answer.remove(); 
+        break; 
+      }
+    }
+  
+    console.log("Hint clicked");
+  }
   return (
     <div className="quiz-container">
       {questions.length > 0 && (
@@ -64,12 +76,14 @@ export default function Quiz() {
           handleQuizClick={handleQuizClick}
           handleNextClick={handleNextClick}
           handlePreviousClick={handlePreviousClick}
+          handleHintClick={handleHintClick}
           userAnswer={userAnswers[questionIndex]}
         />
       )}
       <div className="score-section">
         <p>Your Score: {score}</p>
       </div>
+      
     </div>
   );
 }
