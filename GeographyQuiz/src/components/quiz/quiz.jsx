@@ -8,7 +8,8 @@ export default function Quiz() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState(quiz1Questions);
   const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
+  const [userAnswers, setUserAnswers] = useState({});
+  const [questionNum, setQuestionNum]  = useState(1)
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -16,10 +17,25 @@ export default function Quiz() {
     }
   }, [questionIndex, questions]);
 
+  
+  useEffect(() => {
+    let newScore = 0;
+    questions.forEach((question, index) => {
+      if (userAnswers[index] === question.answer) {
+        newScore += 1;
+      }
+    });
+    setScore(newScore);
+  }, [userAnswers, questions]);
+
   function handleQuizClick(e) {
-    if (e.target.textContent === currentQuestion.answer) {
-      setScore((score) => score + 1);
-    }
+    const selectedAnswer = e.target.textContent;
+
+   
+    setUserAnswers((prev) => ({
+      ...prev,
+      [questionIndex]: selectedAnswer,
+    }));
   }
 
   function handleNextClick() {
@@ -39,8 +55,18 @@ export default function Quiz() {
     });
   }
 
+  function handleHintClick() {
+    let wrongAnswers = document.querySelectorAll(".answer-button");
   
-
+    for (let answer of wrongAnswers) {
+      if (answer.textContent !== currentQuestion.answer) {
+        answer.remove(); 
+        break; 
+      }
+    }
+  
+    console.log("Hint clicked");
+  }
   return (
     <div className="quiz-container">
       {questions.length > 0 && (
@@ -50,10 +76,14 @@ export default function Quiz() {
           handleQuizClick={handleQuizClick}
           handleNextClick={handleNextClick}
           handlePreviousClick={handlePreviousClick}
+          handleHintClick={handleHintClick}
+          userAnswer={userAnswers[questionIndex]}
         />
       )}
-
-      {questions.length <= 0 && <h5>There has been an error getting your questions</h5>}
+      <div className="score-section">
+        <p>Your Score: {score}</p>
+      </div>
+      
     </div>
   );
 }

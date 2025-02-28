@@ -1,12 +1,12 @@
 
 export const quiz1Questions = [
     {   
-        question: "Do you like pizza?",
-        optionA: "Yes i do",
-        optionB:"No i dont",
-        optionC: "I make my own!",
-        optionD: "Is that even a question?!",
-        answer: "Yes i do"
+        question: "What is the main economic model in the Western World",
+        optionA: "Planned Economy",
+        optionB:"Market Economy",
+        optionC: "Corporatism",
+        optionD: "Feudalism",
+        answer: "Market Economy"
     },
     {
         question: "What is the Capital of France",
