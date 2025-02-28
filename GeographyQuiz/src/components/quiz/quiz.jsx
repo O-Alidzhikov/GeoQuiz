@@ -64,9 +64,25 @@ export default function Quiz() {
         break; 
       }
     }
-  
     console.log("Hint clicked");
   }
+
+  function handleHalfClick() {
+    let wrongAnswers = document.querySelectorAll(".answer-button");
+    let loops = 0; 
+
+    for (let answer of wrongAnswers) {
+        if (answer.textContent !== currentQuestion.answer) {
+            answer.remove(); 
+            loops++; 
+
+            if (loops >= 2) {
+                break; 
+            }
+        }
+    }
+
+}
   return (
     <div className="quiz-container">
       {questions.length > 0 && (
@@ -77,6 +93,7 @@ export default function Quiz() {
           handleNextClick={handleNextClick}
           handlePreviousClick={handlePreviousClick}
           handleHintClick={handleHintClick}
+          handleHalfClick={handleHalfClick}
           userAnswer={userAnswers[questionIndex]}
         />
       )}
