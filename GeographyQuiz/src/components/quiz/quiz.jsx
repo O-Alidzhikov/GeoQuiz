@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "./quiz.css";
 import { quiz1Questions } from "../../utils/quizQuestions";
-import Questions from './questions/questions';
+import Questions from "./questions/questions";
 
 export default function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState({});
@@ -9,7 +9,8 @@ export default function Quiz() {
   const [questions, setQuestions] = useState(quiz1Questions);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
-  const [questionNum, setQuestionNum]  = useState(1)
+  const [questionNum, setQuestionNum] = useState(1);
+  const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -17,7 +18,6 @@ export default function Quiz() {
     }
   }, [questionIndex, questions]);
 
-  
   useEffect(() => {
     let newScore = 0;
     questions.forEach((question, index) => {
@@ -31,7 +31,6 @@ export default function Quiz() {
   function handleQuizClick(e) {
     const selectedAnswer = e.target.textContent;
 
-   
     setUserAnswers((prev) => ({
       ...prev,
       [questionIndex]: selectedAnswer,
@@ -44,7 +43,7 @@ export default function Quiz() {
       if (newIndex < questions.length) {
         return newIndex;
       }
-      return prevIndex; 
+      return prevIndex;
     });
   }
 
@@ -57,11 +56,11 @@ export default function Quiz() {
 
   function handleHintClick() {
     let wrongAnswers = document.querySelectorAll(".answer-button");
-  
+
     for (let answer of wrongAnswers) {
       if (answer.textContent !== currentQuestion.answer) {
-        answer.remove(); 
-        break; 
+        answer.remove();
+        break;
       }
     }
     console.log("Hint clicked");
@@ -69,20 +68,23 @@ export default function Quiz() {
 
   function handleHalfClick() {
     let wrongAnswers = document.querySelectorAll(".answer-button");
-    let loops = 0; 
+    let loops = 0;
 
     for (let answer of wrongAnswers) {
-        if (answer.textContent !== currentQuestion.answer) {
-            answer.remove(); 
-            loops++; 
+      if (answer.textContent !== currentQuestion.answer) {
+        answer.remove();
+        loops++;
 
-            if (loops >= 2) {
-                break; 
-            }
+        if (loops >= 2) {
+          break;
         }
+      }
     }
+  }
 
-}
+  function handleFinishClick() {
+    setIsFinished(true);
+  }
   return (
     <div className="quiz-container">
       {questions.length > 0 && (
@@ -94,13 +96,14 @@ export default function Quiz() {
           handlePreviousClick={handlePreviousClick}
           handleHintClick={handleHintClick}
           handleHalfClick={handleHalfClick}
+          handleFinishClick={handleFinishClick}
           userAnswer={userAnswers[questionIndex]}
+          isFinished={isFinished}
+          questionIndex={questionIndex}
+          questions={questions}
+          score={score}
         />
       )}
-      <div className="score-section">
-        <p>Your Score: {score}</p>
-      </div>
-      
     </div>
   );
 }

@@ -24,4 +24,12 @@ export const quiz1Questions = [
         optionD: "Germany",
         answer: "USA"
     },
+    {
+        question: "Which country isn't a part of the European Union",
+        optionA:"Finland",
+        optionB:"Belgium",
+        optionC: "Malta",
+        optionD: "Norway",
+        answer: "Norway"
+    },
 ]

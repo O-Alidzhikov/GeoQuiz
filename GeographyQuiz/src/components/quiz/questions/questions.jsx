@@ -1,3 +1,6 @@
+import ScorePopup from  "../scorePopup/scorePopUp"
+
+
 export default function Questions({
   question,
   optionA,
@@ -9,13 +12,22 @@ export default function Questions({
   handlePreviousClick,
   handleHintClick,
   handleHalfClick,
+  handleFinishClick,
   userAnswer,
+  isFinished,
+  questionIndex,
+  questions,
+  score,
 }) {
   return (
+
+
     <div className="quiz-box">
+
+    {isFinished === true && <ScorePopup score={score} totalQuestions={questions.length}></ScorePopup>} 
       <div className="question-section">
         <div className="question-count">
-          <span>Question 1</span>/3
+          <span>Question {questionIndex + 1}</span>/{questions.length}
           <div className="hint-buttons">
             <button className="hint-button" onClick={handleHintClick}>
               Hint
@@ -73,7 +85,7 @@ export default function Questions({
         <button className="next-btn" onClick={handleNextClick}>
           Next
         </button>
-        <button className="give-up-btn">Give up</button>
+        <button className="give-up-btn" onClick={handleFinishClick}>Finish</button>
       </div>
     </div>
   );
