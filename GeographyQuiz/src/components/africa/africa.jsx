@@ -59,19 +59,25 @@ export default function Africa() {
 
   return (
     <>
-     <div className="counter">
-            <p>{correctCount}/55 correct answers</p>
-            <p>{wrongCount}/55 wrong answers</p>
-            <p>Select the country: {currentCountry}</p>
+    <div className="quiz-map-body">
+          <div className="counter">
+            <div className="counter-stats">
+              <p>{correctCount}/12 correct</p>
+              <p>{wrongCount}/12 wrong</p>
+            </div>
+            <p className="current-country">Select: {currentCountry}</p>
+            <div className="quiz-map-controls">
+              <div className="quiz-map-start-button">
+                {!isGameOn && <button onClick={startGame}>Start Game</button>}
+                {isGameOn && <button onClick={endGame}>End Game</button>}
+              </div>
+              {isGameOn && <CountDown seconds={500} onTimerStop={onTimerStop} />}
+            </div>
           </div>
-          <div className="asia-start-button">
-            <button onClick={startGame}> Start Game</button>
-            {isGameOn && <CountDown seconds={500} onTimerStop={onTimerStop} />}
-          </div>
-    <div className="africa">
-      <svg
-       onClick={handleClick}
-        className="africa-map"
+          
+          <div className="continent">
+            <svg
+              onClick={handleClick}
         width="1000"
         height="1001"
         viewBox="0 0 1000 1001"
@@ -380,6 +386,7 @@ export default function Africa() {
           d="m 832.6,372.8 -5.7,-5.8 -2.5,-5.7 -4.1,-2.6 -4.2,7.4 -2.5,4.9 4.8,7.7 4.6,6.6 4.8,5 40.3,16.4 10.3,-0.1 -33.5,41.5 -15.9,0.6 -10.7,9.8 -7.8,0.2 -3.3,4.4 -10.5,15.7 0.4,50.4 7.2,11.4 2.7,-3.3 2.9,-7.3 13.4,-16.7 11.4,-10.6 18.1,-13.7 12.1,-11.2 14.1,-18.9 10.1,-15.5 10,-20.2 7,-17.7 5.4,-15.5 2.9,-14.9 2.4,-5 -0.4,-7.3 0.8,-8 -0.5,-3.9 -4.6,0.1 -5.5,4.7 -6.4,1.4 -5.5,2.1 -3.9,0.2 0,0 -6.9,0.5 -4.2,2.6 -6,0.9 -10.5,4.3 -13.2,1.6 -11.3,3.5 -6.1,0 z"
         />
       </svg>
+      </div>
       </div>
     </>
   );

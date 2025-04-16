@@ -34,6 +34,7 @@ export default function SouthAmerica() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentCountry, setCurrentCountry] = useState("");
   const [isGameOn, setIsGameOn] = useState(false);
+  const [isFinished, setIsFinished] = useState(false)
 
   const handleClick = (e) => {
     if (e.target.tagName === "path") {
@@ -49,6 +50,7 @@ export default function SouthAmerica() {
         setCurrentIndex(newIndex);
         setCurrentCountry(iteratedCountries[newIndex]);
       } else if (currentIndex === iteratedCountries.length - 1) {
+		setIsFinished(true)
         endGame();
       }
     }
@@ -56,19 +58,26 @@ export default function SouthAmerica() {
 
   return (
     <>
-      <div className="counter">
-        <p>{correctCount}/12 correct answers</p>
-        <p>{wrongCount}/12 wrong answers</p>
-        <p>Select the country: {currentCountry}</p>
+	<div className="quiz-map-body">
+  <div className="counter">
+    <div className="counter-stats">
+      <p>{correctCount}/12 correct</p>
+      <p>{wrongCount}/12 wrong</p>
+    </div>
+    <p className="current-country">Select: {currentCountry}</p>
+    <div className="quiz-map-controls">
+      <div className="quiz-map-start-button">
+        {!isGameOn && <button onClick={startGame}>Start Game</button>}
+        {isGameOn && <button onClick={endGame}>End Game</button>}
       </div>
-      <div className="south-america-start-button">
-        <button onClick={startGame}> Start Game</button>
-        {isGameOn && <CountDown seconds={500} onTimerStop={onTimerStop} />}
-      </div>
-      <div className="south-america">
-        <svg
-          onClick={handleClick}
-          className="south-america-map"
+      {isGameOn && <CountDown seconds={500} onTimerStop={onTimerStop} />}
+    </div>
+  </div>
+  
+  <div className="continent">
+    <svg
+      onClick={handleClick}
+      className="continent-map"
           baseProfile="tiny"
           fill="#ececec"
           height="684"
@@ -5090,6 +5099,7 @@ export default function SouthAmerica() {
           </g>
         </svg>
       </div>
+	  </div>
     </>
   );
 }

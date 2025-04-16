@@ -1,21 +1,169 @@
-.south-america {
-    background-color: #01171b;
+/* Base styles for the quiz map container */
+.quiz-map-body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f7fa;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Counter styles - now inline with buttons */
+.counter {
+  background-color: #ffffff;
+  padding: 15px 25px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.counter-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.counter-stats p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.counter-stats p:first-child {
+  color: #2ecc71; /* Green for correct */
+}
+
+.counter-stats p:last-child {
+  color: #e74c3c; /* Red for wrong */
+}
+
+.current-country {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3498db;
+  margin: 0 20px;
+  text-align: center;
+  flex-grow: 1;
+}
+
+/* Button container styles */
+.quiz-map-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.quiz-map-start-button button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+  white-space: nowrap;
+}
+
+.quiz-map-start-button button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(52, 152, 219, 0.4);
+}
+
+/* Map container styles */
+.continent {
+  background-color: #01171b;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.continent-map {
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+  height: auto;
+  min-width: 900px;
+  transition: all 0.3s ease;
+}
+
+/* SVG path styles */
+path {
+  fill: #00394f;
+  stroke: #ecf0f1;
+  stroke-width: 0.4;
+  transition: all 0.4s ease;
+}
+
+path:hover {
+  fill: #00a8ff;
+  cursor: pointer;
+  stroke-width: 0.6;
+  filter: drop-shadow(0 0 10px rgba(0, 168, 255, 0.7));
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .continent-map {
+    width: 100%;
+    min-width: auto;
+  }
   
-    
+  .continent {
+    max-width: 100%;
   }
-  .south-america-map{
-    width: 75%; 
-    height: auto;
-  }
+}
 
-  path {
-    fill: #00394f;
-    stroke: #eee;
-    stroke-width:.25;
+@media (max-width: 768px) {
+  .quiz-map-body {
+    padding: 15px;
   }
-
-  path:hover{
-    fill: #006284;
-    transition: 0.6s;
-    cursor: pointer
+  
+  .counter {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
   }
+  
+  .counter-stats {
+    order: 2;
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .current-country {
+    order: 1;
+    margin: 0 0 10px 0;
+  }
+  
+  .quiz-map-controls {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .quiz-map-start-button button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+  .continent-map {
+    width: 100%;
+  }
+}

@@ -59,18 +59,26 @@ export default function Europe() {
 
   return (
     <>
+    <div className="quiz-map-body">
       <div className="counter">
-        <p>{correctCount}/41 correct answers</p>
-        <p>{wrongCount}/41 wrong answers</p>
-        <p>Select the country: {currentCountry}</p>
+        <div className="counter-stats">
+          <p>{correctCount}/12 correct</p>
+          <p>{wrongCount}/12 wrong</p>
+        </div>
+        <p className="current-country">Select: {currentCountry}</p>
+        <div className="quiz-map-controls">
+          <div className="quiz-map-start-button">
+            {!isGameOn && <button onClick={startGame}>Start Game</button>}
+            {isGameOn && <button onClick={endGame}>End Game</button>}
+          </div>
+          {isGameOn && <CountDown seconds={500} onTimerStop={onTimerStop} />}
+        </div>
       </div>
-      <div className="eu-start-button">
-        <button onClick={startGame}> Start Game</button>
-        {isGameOn && <CountDown seconds={500} onTimerStop={onTimerStop} />}
-      </div>
-      <div className="europe">
+      
+      <div className="continent">
         <svg
           onClick={handleClick}
+          className="continent-map"
           baseProfile="tiny"
           fill="#ececec"
           height="684"
@@ -312,6 +320,7 @@ export default function Europe() {
           <circle cx="575.4" cy="412" id="1"></circle>
           <circle cx="521" cy="266.6" id="2"></circle>
         </svg>
+      </div>
       </div>
     </>
   );
