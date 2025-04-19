@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import AuthProvider from './contexts/userContext';
 import Header from './components/header/home/header'
-import Home from './components/home/Home';
+import Home from './components/home/home';
 import Europe from './components/eu/eu'
 import Asia from './components/asia/asia';
 import SouthAmerica from './components/south-america/southAmerica';
@@ -13,6 +13,7 @@ import Register from './components/register/register';
 import Logout from './components/logout/logout';
 import Quiz from './components/quiz/quiz';
 import MapQuizzes from './components/map quizzes/mapQuizzes';
+import QuizCreate from './components/quiz create/QuizCreate';
 
 
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/south-america-quiz" element={<SouthAmerica />}></Route>
           <Route path="/africa=quiz" element={<Africa />}></Route>
           <Route path="/quizzes" element={<Quiz />}></Route>
+          <Route path="/quiz-create" element={<QuizCreate />}></Route>
         </Routes>
       </AuthProvider>
     </>

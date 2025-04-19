@@ -9,7 +9,6 @@ export default function Quiz() {
   const [questions, setQuestions] = useState(quiz1Questions);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
-  const [questionNum, setQuestionNum] = useState(1);
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {

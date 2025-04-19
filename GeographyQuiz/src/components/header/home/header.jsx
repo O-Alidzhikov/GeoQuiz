@@ -19,6 +19,7 @@ const {isAuthenticated , username} = useContext(UserContext)
                 <div id="user">
                     <Link to="/quizzes">Do More Quizzes</Link>
                     {isAuthenticated &&<Link to="/logout">Logout</Link> }
+                    {isAuthenticated &&<Link to="/quiz-create">Create Your Own Quiz!</Link> }
 
                 </div>
                 <div id="guest">
