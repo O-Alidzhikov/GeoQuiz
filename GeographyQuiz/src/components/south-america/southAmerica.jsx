@@ -1,28 +1,32 @@
 import "./southAmerica.css";
 import { southAmericanCountries } from "../../utils/countries";
 import { shuffleArray } from "../../utils/arrRandomizer";
+import MapQuizScorePopup from "../mapQuizScorePopUp/mapQuizScorePopUp";
 import CountDown from "../../utils/CountDown";
 import React, { useEffect, useState } from "react";
 
 export default function SouthAmerica() {
+	
   function startGame() {
     setIsGameOn(true);
     const shuffledCountries = shuffleArray(southAmericanCountries);
     setIteratedCountries(shuffledCountries);
     setCurrentCountry(shuffledCountries[0]);
-    console.log(shuffledCountries);
+   // console.log(shuffledCountries);
     setCorrectCount(0);
     setWrongCount(0);
     setCurrentIndex(0);
+	setIsFinished(false)
   }
 
   function endGame() {
-    alert("Quiz Completed!");
-    setCorrectCount(0);
+    // alert("Quiz Completed!");
+   // setCorrectCount(0);
     setWrongCount(0);
     setCurrentIndex(0);
     setCurrentCountry("");
     setIsGameOn(false);
+	
   }
 
   function onTimerStop() {
@@ -56,6 +60,13 @@ export default function SouthAmerica() {
     }
   };
 
+  useEffect(() => {
+	if (isFinished) {
+	  setIsGameOn(false);
+	  setCurrentCountry("");
+	}
+  }, [isFinished],);
+
   return (
     <>
 	<div className="quiz-map-body">
@@ -72,6 +83,7 @@ export default function SouthAmerica() {
       </div>
       {isGameOn && <CountDown seconds={500} onTimerStop={onTimerStop} />}
     </div>
+	{isFinished && <MapQuizScorePopup score={correctCount} totalCountries={iteratedCountries.length} />}
   </div>
   
   <div className="continent">

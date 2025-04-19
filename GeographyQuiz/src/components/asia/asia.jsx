@@ -2,6 +2,7 @@ import "./asia.css";
 import { asianCountries } from "../../utils/countries";
 import { shuffleArray } from "../../utils/arrRandomizer";
 import CountDown from "../../utils/CountDown";
+import MapQuizScorePopup from "../mapQuizScorePopUp/mapQuizScorePopUp";
 import React, { useEffect, useState } from "react";
 
 export default function Asia() {
@@ -10,68 +11,79 @@ export default function Asia() {
     const shuffledCountries = shuffleArray(asianCountries);
     setIteratedCountries(shuffledCountries);
     setCurrentCountry(shuffledCountries[0]);
-    console.log(shuffledCountries);
-    setCorrectCount(0);
-    setWrongCount(0);
-    setCurrentIndex(0);
-  }
-
-  function endGame() {
-    alert("Quiz Completed!");
-    setCorrectCount(0);
-    setWrongCount(0);
-    setCurrentIndex(0);
-    setCurrentCountry("");
-    setIsGameOn(false);
-  }
-
-  function onTimerStop() {
-    endGame();
-  }
-  const [correctCount, setCorrectCount] = useState(0);
-  const [wrongCount, setWrongCount] = useState(0);
-  const [iteratedCountries, setIteratedCountries] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentCountry, setCurrentCountry] = useState("");
-  const [isGameOn, setIsGameOn] = useState(false);
-
-  const handleClick = (e) => {
-    if (e.target.tagName === "path") {
-      const clickedCountry = e.target.getAttribute("name");
-      console.log(clickedCountry);
-	  console.log(asianCountries.length)
-      if (clickedCountry === currentCountry) {
-        setCorrectCount(correctCount + 1);
-      } else {
-        setWrongCount(wrongCount + 1);
-      }
-      if (currentIndex < iteratedCountries.length - 1) {
-        const newIndex = currentIndex + 1;
-        setCurrentIndex(newIndex);
-        setCurrentCountry(iteratedCountries[newIndex]);
-      } else if (currentIndex === iteratedCountries.length - 1) {
-        endGame();
-      }
-    }
-  };
-
-  return (
-	<>
-<div className="quiz-map-body">
-  <div className="counter">
-	<div className="counter-stats">
-	  <p>{correctCount}/12 correct</p>
-	  <p>{wrongCount}/12 wrong</p>
-	</div>
-	<p className="current-country">Select: {currentCountry}</p>
-	<div className="quiz-map-controls">
-	  <div className="quiz-map-start-button">
-		{!isGameOn && <button onClick={startGame}>Start Game</button>}
-		{isGameOn && <button onClick={endGame}>End Game</button>}
-	  </div>
-	  {isGameOn && <CountDown seconds={500} onTimerStop={onTimerStop} />}
-	</div>
-  </div>
+    // console.log(shuffledCountries);
+     setCorrectCount(0);
+     setWrongCount(0);
+     setCurrentIndex(0);
+   setIsFinished(false)
+   }
+ 
+   function endGame() {
+     // alert("Quiz Completed!");
+    // setCorrectCount(0);
+     setWrongCount(0);
+     setCurrentIndex(0);
+     setCurrentCountry("");
+     setIsGameOn(false);
+   
+   }
+ 
+   function onTimerStop() {
+     endGame();
+   }
+   const [correctCount, setCorrectCount] = useState(0);
+   const [wrongCount, setWrongCount] = useState(0);
+   const [iteratedCountries, setIteratedCountries] = useState([]);
+   const [currentIndex, setCurrentIndex] = useState(0);
+   const [currentCountry, setCurrentCountry] = useState("");
+   const [isGameOn, setIsGameOn] = useState(false);
+   const [isFinished, setIsFinished] = useState(false)
+ 
+   const handleClick = (e) => {
+     if (e.target.tagName === "path") {
+       const clickedCountry = e.target.getAttribute("name");
+       console.log(clickedCountry);
+       if (clickedCountry === currentCountry) {
+         setCorrectCount(correctCount + 1);
+       } else {
+         setWrongCount(wrongCount + 1);
+       }
+       if (currentIndex < iteratedCountries.length - 1) {
+         const newIndex = currentIndex + 1;
+         setCurrentIndex(newIndex);
+         setCurrentCountry(iteratedCountries[newIndex]);
+       } else if (currentIndex === iteratedCountries.length - 1) {
+     setIsFinished(true)
+         endGame();
+       }
+     }
+   };
+ 
+   useEffect(() => {
+   if (isFinished) {
+     setIsGameOn(false);
+     setCurrentCountry("");
+   }
+   }, [isFinished],);
+ 
+   return (
+     <>
+   <div className="quiz-map-body">
+   <div className="counter">
+     <div className="counter-stats">
+       <p>{correctCount}/47 correct</p>
+       <p>{wrongCount}/47 wrong</p>
+     </div>
+     <p className="current-country">Select: {currentCountry}</p>
+     <div className="quiz-map-controls">
+       <div className="quiz-map-start-button">
+         {!isGameOn && <button onClick={startGame}>Start Game</button>}
+         {isGameOn && <button onClick={endGame}>End Game</button>}
+       </div>
+       {isGameOn && <CountDown seconds={500} onTimerStop={onTimerStop} />}
+     </div>
+   {isFinished && <MapQuizScorePopup score={correctCount} totalCountries={iteratedCountries.length} />}
+   </div>
   
   <div className="continent">
 	<svg
