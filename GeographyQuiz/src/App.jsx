@@ -13,7 +13,8 @@ import Register from './components/register/register';
 import Logout from './components/logout/logout';
 import Quiz from './components/quiz/quiz';
 import MapQuizzes from './components/map quizzes/mapQuizzes';
-import QuizCreate from './components/quiz create/QuizCreate';
+import QuizCreate from './components/questionGenerator/quiz create/QuizCreate';
+import QuestionGenerator from './components/questionGenerator/questionGenerator';
 
 
 
@@ -38,6 +39,8 @@ function App() {
           <Route path="/africa=quiz" element={<Africa />}></Route>
           <Route path="/quizzes" element={<Quiz />}></Route>
           <Route path="/quiz-create" element={<QuizCreate />}></Route>
+          <Route path="/question" element={<QuestionGenerator />}></Route>
+          
         </Routes>
       </AuthProvider>
     </>
