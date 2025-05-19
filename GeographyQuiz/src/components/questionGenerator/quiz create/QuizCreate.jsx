@@ -8,13 +8,13 @@ export default function QuizCreate({ questionNumber }) {
         <h1>Question {questionNumber}</h1>
       </header>
 
-      <form className="quiz-form">
+      <div className="quiz-form" >
         <div className="form-group">
           <label htmlFor="question">Question</label>
           <input
             type="text"
-            id="question"
-            name="question"
+            id={`question - ${questionNumber}`}
+            name={`question - ${questionNumber}`}
             placeholder="Enter your question here"
             required
           />
@@ -27,8 +27,8 @@ export default function QuizCreate({ questionNumber }) {
               <label htmlFor="optionA">Option A</label>
               <input
                 type="text"
-                id="optionA"
-                name="optionA"
+                id={`optionA - ${questionNumber}`}
+                name={`optionA - ${questionNumber}`}
                 placeholder="Enter option A"
                 required
               />
@@ -37,8 +37,8 @@ export default function QuizCreate({ questionNumber }) {
               <label htmlFor="optionB">Option B</label>
               <input
                 type="text"
-                id="optionB"
-                name="optionB"
+                id={`optionB - ${questionNumber}`}
+                name={`optionB - ${questionNumber}`}
                 placeholder="Enter option B"
                 required
               />
@@ -47,8 +47,8 @@ export default function QuizCreate({ questionNumber }) {
               <label htmlFor="optionC">Option C</label>
               <input
                 type="text"
-                id="optionC"
-                name="optionC"
+                id={`optionC - ${questionNumber}`}
+                name={`optionC - ${questionNumber}`}
                 placeholder="Enter option C"
                 required
               />
@@ -57,8 +57,8 @@ export default function QuizCreate({ questionNumber }) {
               <label htmlFor="optionD">Option D</label>
               <input
                 type="text"
-                id="optionD"
-                name="optionD"
+                id={`optionD - ${questionNumber}`}
+                name={`optionD - ${questionNumber}`}
                 placeholder="Enter option D"
                 required
               />
@@ -67,8 +67,8 @@ export default function QuizCreate({ questionNumber }) {
               <label htmlFor="answer">Answer</label>
               <input
                 type="text"
-                id="answer"
-                name="answer"
+                id={`answer - ${questionNumber}`}
+                name={`answer - ${questionNumber}`}
                 placeholder="Write the correct answer here"
               />
             </div>
@@ -80,7 +80,7 @@ export default function QuizCreate({ questionNumber }) {
             Clear Form
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
