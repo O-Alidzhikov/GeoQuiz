@@ -38,8 +38,8 @@ function App() {
           <Route path="/south-america-quiz" element={<SouthAmerica />}></Route>
           <Route path="/africa=quiz" element={<Africa />}></Route>
           <Route path="/quizzes" element={<Quiz />}></Route>
-          <Route path="/quiz-create" element={<QuizCreate />}></Route>
-          <Route path="/question" element={<QuestionGenerator />}></Route>
+        {/*  <Route path="/quiz-create" element={<QuizCreate />}></Route>*/} 
+          <Route path="/quiz-create" element={<QuestionGenerator />}></Route>
           
         </Routes>
       </AuthProvider>

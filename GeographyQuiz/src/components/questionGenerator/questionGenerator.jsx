@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import QuizCreate from "./quiz create/QuizCreate";
+import { createQuiz } from "../../services/quizService"
+import { useNavigate } from "react-router";
 import "./questionGenerator.css"
 
 export default function QuestionGenerator() {
   const [numberQuestions, setNumberQuestions] = useState(0);
   const [quizTitle, setQuizTitle] = useState("")
 
-  function formHandler(e){
+    const navigate = useNavigate()
+
+ async function  formHandler (e){
     e.preventDefault();
     const quizData = Object.fromEntries(new FormData(e.currentTarget));
 
@@ -24,6 +28,8 @@ export default function QuestionGenerator() {
     }
   
     console.log(questions);
+   await createQuiz(questions)
+   navigate("/")
   }
 
   return (
