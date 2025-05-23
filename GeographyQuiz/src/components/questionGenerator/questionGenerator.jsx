@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import QuizCreate from "./quiz create/QuizCreate";
-import { createQuiz } from "../../services/quizService"
+import { createQuiz } from "../../services/quizService";
 import { useNavigate } from "react-router";
-import "./questionGenerator.css"
+import "./questionGenerator.css";
 
 export default function QuestionGenerator() {
   const [numberQuestions, setNumberQuestions] = useState(0);
-  const [quizTitle, setQuizTitle] = useState("")
+  const [quizTitle, setQuizTitle] = useState("");
+  const [quizDescription, setDescription] = useState("");
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
- async function  formHandler (e){
+  async function formHandler(e) {
     e.preventDefault();
     const quizData = Object.fromEntries(new FormData(e.currentTarget));
 
-    let questions = []
+    let questions = [];
 
     for (let i = 1; i <= numberQuestions; i++) {
       questions.push({
@@ -26,30 +27,67 @@ export default function QuestionGenerator() {
         answer: quizData[`answer - ${i}`],
       });
     }
-  
-    console.log(questions);
-   await createQuiz(questions)
-   navigate("/")
+    const quiz = {
+      title: quizTitle,
+      questions: questions,
+      description:quizDescription,
+    };
+
+    console.log(quiz);
+    await createQuiz(quiz);
+    navigate("/");
   }
 
   return (
     <div className="question-generator-container">
+      <div className="question-header">
+        <h4>Welcome! First tell us about your quiz:</h4>
+      </div>
+
+      <div className="quiz-settings-card">
+        <div className="input-group full-width">
+          <label htmlFor="quiz-title">Quiz Title:</label>
+          <input
+            type="text"
+            id="quiz-title"
+            value={quizTitle}
+            onChange={(e) => setQuizTitle(e.target.value)}
+            placeholder="Enter quiz title"
+          />
+        </div>
+
+        <div className="input-group full-width">
+          <label htmlFor="quiz-description">Description:</label>
+          <textarea
+            id="quiz-description"
+            value={quizDescription}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Briefly describe your quiz"
+          />
+        </div>
+      </div>
+
       <div className="controls">
-        <label>Welcome! First thing tell us how many questions you would like to have. And the title of your quiz!:</label>
-        <input
-          type="number"
-          min="0"
-          value={numberQuestions}
-          onChange={(e) => setNumberQuestions(Math.max(0, Number(e.target.value)))}
-        />
-        <input type="text" value={quizTitle} onChange={(e) => setQuizTitle(String(e.target.value))}/>
+        <div className="input-group">
+          <label htmlFor="question-count">Number of Questions:</label>
+          <input
+            type="number"
+            id="question-count"
+            min="0"
+            value={numberQuestions}
+            onChange={(e) =>
+              setNumberQuestions(Math.max(0, Number(e.target.value)))
+            }
+            onWheel={(e) => e.target.blur()}
+          />
+        </div>
       </div>
 
       <form className="quiz-generator-container" onSubmit={formHandler}>
         {[...Array(numberQuestions)].map((_, i) => (
           <QuizCreate key={i} questionNumber={i + 1} />
         ))}
-        <button type="submit" >cool button</button>
+        {numberQuestions > 0 && <button type="submit">Create Quiz</button>}
       </form>
     </div>
   );
