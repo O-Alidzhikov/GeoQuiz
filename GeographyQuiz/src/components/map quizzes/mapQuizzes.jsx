@@ -30,7 +30,7 @@ export default function MapQuizzes() {
                     <h2>Map Of Africa</h2>
                     <p>Africa has the most countries in the world! Do you know them? Test your knowledge in this quiz!</p>
                     <button className="map-button">
-                        <Link to="/africa=quiz" className="map-link">Play the map of Africa here!</Link>
+                        <Link to="/africa-quiz" className="map-link">Play the map of Africa here!</Link>
                     </button>
                     </div>
                 <div className="quizz-map-box">hello from mapQuizzes</div>

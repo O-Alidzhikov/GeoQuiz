@@ -11,3 +11,14 @@ exports.create = async (questions) => {
     throw new Error("Error creating quiz");
   }
 } 
+
+
+exports.getQuizzes = async () => {
+  try {
+    const allQuizzes = await Quiz.find({}); 
+    return allQuizzes; 
+  } catch (error) {
+    console.error('Error getting quizzes:', error);
+    throw error; 
+  }
+};

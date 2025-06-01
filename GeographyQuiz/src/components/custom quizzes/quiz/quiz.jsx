@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./quiz.css";
-import { quiz1Questions } from "../../utils/quizQuestions";
-import Questions from "./questions/questions";
+import Questions from "../../quiz/questions/questions";
+import { getQuizzes } from "../../../services/quizService";
 
 export default function Quiz() {
+  const { id } = useParams(); 
   const [currentQuestion, setCurrentQuestion] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [questions, setQuestions] = useState(quiz1Questions);
+  const [questions, setQuestions] = useState([]);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [isFinished, setIsFinished] = useState(false);
+
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      const data = await getQuizzes();
+      const selectedQuiz = data.find(q => q._id === id); 
+      if (selectedQuiz) {
+        setQuestions(selectedQuiz.questions);
+      }
+    };
+
+    fetchQuiz();
+  }, [id]);
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -29,7 +43,6 @@ export default function Quiz() {
 
   function handleQuizClick(e) {
     const selectedAnswer = e.target.textContent;
-
     setUserAnswers((prev) => ({
       ...prev,
       [questionIndex]: selectedAnswer,
@@ -37,20 +50,15 @@ export default function Quiz() {
   }
 
   function handleNextClick() {
-    setQuestionIndex((prevIndex) => {
-      const newIndex = prevIndex + 1;
-      if (newIndex < questions.length) {
-        return newIndex;
-      }
-      return prevIndex;
-    });
+    setQuestionIndex((prevIndex) =>
+      Math.min(prevIndex + 1, questions.length - 1)
+    );
   }
 
   function handlePreviousClick() {
-    setQuestionIndex((prevIndex) => {
-      const newIndex = Math.max(0, prevIndex - 1);
-      return newIndex;
-    });
+    setQuestionIndex((prevIndex) =>
+      Math.max(0, prevIndex - 1)
+    );
   }
 
   function handleHintClick() {
@@ -62,7 +70,6 @@ export default function Quiz() {
         break;
       }
     }
-    console.log("Hint clicked");
   }
 
   function handleHalfClick() {
@@ -73,10 +80,7 @@ export default function Quiz() {
       if (answer.textContent !== currentQuestion.answer) {
         answer.remove();
         loops++;
-
-        if (loops >= 2) {
-          break;
-        }
+        if (loops >= 2) break;
       }
     }
   }
@@ -84,6 +88,7 @@ export default function Quiz() {
   function handleFinishClick() {
     setIsFinished(true);
   }
+
   return (
     <div className="quiz-container">
       {questions.length > 0 && (
