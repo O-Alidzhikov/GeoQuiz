@@ -36,7 +36,6 @@ function App() {
           <Route path="/asia-quiz" element={<Asia />}></Route>
           <Route path="/south-america-quiz" element={<SouthAmerica />}></Route>
           <Route path="/africa-quiz" element={<Africa />}></Route>
-          <Route path="/quizzes" element={<Quiz />}></Route>
           <Route path="/quizzes/:id" element={<Quiz />} />
           <Route path="/quiz-create" element={<QuestionGenerator />}></Route>
           <Route path="/custom-quizzes" element={<QuizOptions />}></Route>

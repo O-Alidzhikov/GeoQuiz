@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./quiz.css";
-import Questions from "../../quiz/questions/questions";
+import Questions from "../quiz/questions/questions";
 import { getQuizzes } from "../../../services/quizService";
 
 export default function Quiz() {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [hintsLeft, setHintsLeft] = useState(5);
+  const [fiftyFiftyHint, setFiftyFiftyHint] = useState(2);
   const [questions, setQuestions] = useState([]);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
@@ -16,12 +18,11 @@ export default function Quiz() {
   useEffect(() => {
     const fetchQuiz = async () => {
       const data = await getQuizzes();
-      const selectedQuiz = data.find(q => q._id === id); 
+      const selectedQuiz = data.find((q) => q._id === id);
       if (selectedQuiz) {
         setQuestions(selectedQuiz.questions);
       }
     };
-
     fetchQuiz();
   }, [id]);
 
@@ -56,13 +57,12 @@ export default function Quiz() {
   }
 
   function handlePreviousClick() {
-    setQuestionIndex((prevIndex) =>
-      Math.max(0, prevIndex - 1)
-    );
+    setQuestionIndex((prevIndex) => Math.max(0, prevIndex - 1));
   }
 
   function handleHintClick() {
     let wrongAnswers = document.querySelectorAll(".answer-button");
+    setHintsLeft(hintsLeft - 1);
 
     for (let answer of wrongAnswers) {
       if (answer.textContent !== currentQuestion.answer) {
@@ -75,7 +75,7 @@ export default function Quiz() {
   function handleHalfClick() {
     let wrongAnswers = document.querySelectorAll(".answer-button");
     let loops = 0;
-
+    setFiftyFiftyHint(fiftyFiftyHint - 1);
     for (let answer of wrongAnswers) {
       if (answer.textContent !== currentQuestion.answer) {
         answer.remove();
@@ -105,6 +105,8 @@ export default function Quiz() {
           isFinished={isFinished}
           questionIndex={questionIndex}
           questions={questions}
+          hintsLeft={hintsLeft}
+          fiftyFiftyHint={fiftyFiftyHint}
           score={score}
         />
       )}

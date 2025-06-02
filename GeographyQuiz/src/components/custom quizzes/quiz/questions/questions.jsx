@@ -1,5 +1,4 @@
-import ScorePopup from  "../scorePopup/scorePopUp"
-
+import ScorePopup from "../scorePopup/scorePopUp";
 
 export default function Questions({
   question,
@@ -17,23 +16,40 @@ export default function Questions({
   isFinished,
   questionIndex,
   questions,
+  hintsLeft,
+  fiftyFiftyHint,
   score,
 }) {
   return (
-
-
     <div className="quiz-box">
-
-    {isFinished === true && <ScorePopup score={score} totalQuestions={questions.length}></ScorePopup>} 
+      {isFinished === true && (
+        <ScorePopup
+          score={score}
+          totalQuestions={questions.length}
+        ></ScorePopup>
+      )}
       <div className="question-section">
         <div className="question-count">
           <span>Question {questionIndex + 1}</span>/{questions.length}
           <div className="hint-buttons">
-            <button className="hint-button" onClick={handleHintClick}>
-              Hint
+            <button
+              className="hint-button"
+              onClick={handleHintClick}
+              disabled={hintsLeft === 0}
+            >
+              {hintsLeft > 0
+                ? `${hintsLeft} - Hint${hintsLeft > 1 ? "s" : ""}`
+                : "No hints left"}
             </button>
-            <button className="hint-button" onClick={handleHalfClick}>
-              50/50
+            <button
+              id="fiftyFiftyHintId"
+              className="hint-button"
+              onClick={handleHalfClick}
+              disabled={fiftyFiftyHint === 0}
+            >
+              {fiftyFiftyHint > 0
+                ? `${fiftyFiftyHint} - 50/50 Hint${fiftyFiftyHint > 1 ? "s" : ""}`
+                : "No 50/50 hints left"}
             </button>
           </div>
         </div>
@@ -85,7 +101,9 @@ export default function Questions({
         <button className="next-btn" onClick={handleNextClick}>
           Next
         </button>
-        <button className="give-up-btn" onClick={handleFinishClick}>Finish</button>
+        <button className="give-up-btn" onClick={handleFinishClick}>
+          Finish
+        </button>
       </div>
     </div>
   );
