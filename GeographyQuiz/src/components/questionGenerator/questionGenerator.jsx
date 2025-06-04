@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import QuizCreate from "./quiz create/QuizCreate";
 import { createQuiz } from "../../services/quizService";
 import { useNavigate } from "react-router";
+import { UserContext } from "../../contexts/userContext";
+import { useContext } from "react";
 import "./questionGenerator.css";
 
 export default function QuestionGenerator() {
   const [numberQuestions, setNumberQuestions] = useState(0);
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setDescription] = useState("");
+  // const { userId} = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -30,6 +33,7 @@ export default function QuestionGenerator() {
     const quiz = {
       title: quizTitle,
       questions: questions,
+      // owner: userId,
       description:quizDescription,
     };
 

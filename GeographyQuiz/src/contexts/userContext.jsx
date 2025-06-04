@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
       const response = await userService.login(values.email, values.password,);
       console.log(response.user);
       setIsAuthenticated(response.user)
-      Cookies.set('auth-token', response.token, { expires: 7 }); 
+       // const token = Cookies.get("auth-token");
       navigate("/")
      
      
@@ -59,6 +59,7 @@ const AuthProvider = ({ children }) => {
     username: isAuthenticated.username,
     email: isAuthenticated.email,
     // password: isAuthenticated.password,
+   // userId : Cookies.get("auth-token")
   };
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
 };

@@ -34,3 +34,18 @@ export async function getQuizzes() {
     throw error;
   }
 }
+
+export async function deleteQuiz() {
+  try {
+    const response = await fetch(`${baseUrl}/delete`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const result = await response;
+    return response;
+  } catch (error) {
+    console.error("Failied to delete quiz", error);
+    throw error;
+  }
+}

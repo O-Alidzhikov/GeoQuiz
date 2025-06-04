@@ -22,3 +22,13 @@ exports.getQuizzes = async () => {
     throw error; 
   }
 };
+
+
+exports.deleteQuiz = async (quizId) => {
+  try{
+
+  } catch(error) {
+     console.error('Error deleting quiz:', error);
+    throw error; 
+  }
+}
