@@ -10,7 +10,7 @@ export default function QuestionGenerator() {
   const [numberQuestions, setNumberQuestions] = useState(0);
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setDescription] = useState("");
-  // const { userId} = useContext(UserContext);
+   const { userId} = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ export default function QuestionGenerator() {
     const quiz = {
       title: quizTitle,
       questions: questions,
-      // owner: userId,
+       owner: userId,
       description:quizDescription,
     };
 

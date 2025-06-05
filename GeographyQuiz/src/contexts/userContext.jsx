@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Cookies from 'js-cookie';
 import * as userService from "../services/userService";
@@ -9,9 +9,25 @@ const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate()
 
+
+    useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await userService.getCurrentUser(); // Calls /me
+        setUser(response); 
+      } catch (err) {
+        console.log("Not logged in or token expired.");
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+
+
   async function loginSubmitHandler(values) {
     try {
-      const response = await userService.login(values.email, values.password,);
+      const response = await userService.login(values.email, values.password);
       console.log(response.user);
       setIsAuthenticated(response.user)
        // const token = Cookies.get("auth-token");
@@ -59,7 +75,7 @@ const AuthProvider = ({ children }) => {
     username: isAuthenticated.username,
     email: isAuthenticated.email,
     // password: isAuthenticated.password,
-   // userId : Cookies.get("auth-token")
+    userId: isAuthenticated._id,
   };
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
 };

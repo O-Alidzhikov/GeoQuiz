@@ -47,6 +47,19 @@ export async function register(username, email, password, repeatpassword) {
   }
 }
 
+export async function getCurrentUser() {
+  const response = await fetch("http://localhost:2000/me", {
+    credentials: "include", // 👈 sends the HTTP-only cookie
+  });
+
+  if (!response.ok) {
+    throw new Error("User not authenticated");
+  }
+
+  return response.json(); // expects { _id, email, username }
+}
+
+
 export async function logout() {
   try {
     const response = await fetch(`${baseUrl}/logout`, {

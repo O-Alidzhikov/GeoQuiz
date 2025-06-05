@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const {isAuth} = require("../middlewares/authMiddleware")
 const userService = require("../services/userService");
 
 router.post("/register", async (req, res) => {
@@ -23,6 +24,17 @@ router.post("/login", async (req, res) => {
     path: "/",
   });
   res.status(200).json({ user: userData.user, token: userData.token });
+});
+
+
+router.get("/me", isAuth, (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  res.status(200).json({
+    userId: req.user._id,
+  });
 });
 
 router.get("/logout", (req, res) => {
