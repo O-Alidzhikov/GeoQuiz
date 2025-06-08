@@ -5,16 +5,17 @@ import { useState, useEffect } from "react";
 
 export default function QuizOptions() {
   const [customQuizzes, setCustomQuizzes] = useState([]);
+  
 
   useEffect(() => {
     const fetchQuiz = async () => {
       const quizzesData = await getQuizzes();
       setCustomQuizzes(quizzesData);
-      console.log(customQuizzes);
     };
 
     fetchQuiz();
   }, []);
+
 
   return (
     <>

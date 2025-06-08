@@ -35,17 +35,24 @@ export async function getQuizzes() {
   }
 }
 
-export async function deleteQuiz() {
+export async function deleteQuiz(quizId) {
   try {
-    const response = await fetch(`${baseUrl}/delete`);
+    const response = await fetch(`${baseUrl}/quiz-create`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ _id: quizId }),
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const result = await response;
-    return response;
+
+    const result = await response.json();
+    return result;
   } catch (error) {
-    console.error("Failied to delete quiz", error);
+    console.error("Failed to delete quiz", error);
     throw error;
   }
 }

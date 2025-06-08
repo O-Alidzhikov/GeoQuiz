@@ -1,32 +1,27 @@
+import { Routes, Route } from "react-router-dom";
 
-import { Routes, Route } from 'react-router-dom';
-
-import AuthProvider from './contexts/userContext';
-import Header from './components/header/home/header'
-import Home from './components/home/home';
-import Europe from './components/eu/eu'
-import Asia from './components/asia/asia';
-import SouthAmerica from './components/south-america/southAmerica';
-import Africa from './components/africa/africa';
-import Login from './components/login/login'
-import Register from './components/register/register';
-import Logout from './components/logout/logout';
-import Quiz from './components/custom quizzes/quiz/quiz';
-import MapQuizzes from './components/map quizzes/mapQuizzes';
-import QuestionGenerator from './components/questionGenerator/questionGenerator';
-import QuizOptions from './components/custom quizzes/customQuizOptions';
-
-
- 
+import AuthProvider from "./contexts/userContext";
+import Header from "./components/header/home/header";
+import Home from "./components/home/home";
+import Europe from "./components/eu/eu";
+import Asia from "./components/asia/asia";
+import SouthAmerica from "./components/south-america/southAmerica";
+import Africa from "./components/africa/africa";
+import Login from "./components/login/login";
+import Register from "./components/register/register";
+import Logout from "./components/logout/logout";
+import Quiz from "./components/custom quizzes/quiz/quiz";
+import MapQuizzes from "./components/map quizzes/mapQuizzes";
+import QuestionGenerator from "./components/questionGenerator/questionGenerator";
+import QuizOptions from "./components/custom quizzes/customQuizOptions";
 
 function App() {
-
   return (
     <>
       <AuthProvider>
         <Header></Header>
         <Routes>
-        <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<Home />}></Route>
 
           <Route path="/login" element={<Login />}></Route>
           <Route path="/logout" element={<Logout />}></Route>
@@ -39,11 +34,10 @@ function App() {
           <Route path="/quizzes/:id" element={<Quiz />} />
           <Route path="/quiz-create" element={<QuestionGenerator />}></Route>
           <Route path="/custom-quizzes" element={<QuizOptions />}></Route>
-          
         </Routes>
       </AuthProvider>
     </>
   );
 }
 
-export default App
+export default App;

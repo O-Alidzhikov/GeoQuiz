@@ -25,10 +25,11 @@ exports.getQuizzes = async () => {
 
 
 exports.deleteQuiz = async (quizId) => {
-  try{
-
-  } catch(error) {
-     console.error('Error deleting quiz:', error);
-    throw error; 
+  try {
+    const deletedQuiz = await Quiz.findByIdAndDelete(quizId);
+    return deletedQuiz; 
+  } catch (error) {
+    console.error('Error deleting quiz:', error);
+    throw error;
   }
-}
+};

@@ -6,8 +6,6 @@ import { useContext } from "react";
 export default function Header() {
   const { isAuthenticated, username, userId } = useContext(UserContext);
 
-  console.log(userId)
-
   return (
     <header className="header">
       <h1>
