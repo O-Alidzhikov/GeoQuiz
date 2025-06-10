@@ -1,93 +1,118 @@
 .registerContainer {
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 200px;
+    max-width: 450px;
+    margin: 100px auto;
     background: #fff;
-    padding-bottom: 30px;
-  }
-  
-  .registerHeader {
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+}
+
+.registerHeader {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 9px;
-    width: 100%;
-    margin-top: 30px;
-  }
-  
-  .registerText {
-    color: #3c009d;
-    font-size: 48px;
-    font-weight: 700;
-  }
-  
-  .registerUnderline {
-    width: 61px;
-    height: 6px;
-    background:#3c009d;
-    border-radius: 9px;
-  }
-  
-  .registerInputs{
-    margin-top: 55px;
+    margin-bottom: 40px;
+}
+
+.registerText {
+    color: #2d3748;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.registerSubtext {
+    color: #718096;
+    font-size: 16px;
+    text-align: center;
+    max-width: 350px;
+    line-height: 1.5;
+}
+
+.registerInputs {
     display: flex;
     flex-direction: column;
-    gap: 25px;
-  }
-  
-  .registerInput {
+    gap: 20px;
+}
+
+.registerInput {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.registerInput label {
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.inputField {
     display: flex;
     align-items: center;
-    margin: auto;
-    width: 480px;
-    height: 80px;
-    background: #eaeaea;
-    border-radius: 6px;
-  }
-  
-  .registerInput img{
-    margin: 0px 30px;
-  }
-  
-  .registerInput input {
+    padding: 0 15px;
     height: 50px;
-    width: 400px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.inputField:focus-within {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.inputField svg {
+    margin-right: 12px;
+}
+
+.inputField input {
+    flex: 1;
+    height: 100%;
     background: transparent;
     border: none;
     outline: none;
-    color: #797979;
-    font-size: 19px;
-  }
-  
-  .forgot-password {
-    padding-left: 62px;
-    margin-top: 27px;
-    color:#797979;
-    font-size: 18px;
-  }
-  
-  .forgot-password span{
-    color: #4c00b4;
-    cursor: pointer;
-  }
-  
-  .register-submit-container {
-    display: flex;
-    gap:30px;
-    margin: 60px auto;
-  }
-  
-  .register-submit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 220px;
-    height: 59px;
+    color: #1a202c;
+    font-size: 15px;
+}
+
+.register-submit {
+    width: 100%;
+    height: 50px;
     color: #fff;
-    background:#3c009d;
-    border-radius: 50px;
-    font-size: 19px;
-    font-weight: 700;
+    background: #6366f1;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
-  }
+    margin-top: 25px;
+    transition: background 0.2s ease;
+}
+
+.register-submit:hover {
+    background: #4f46e5;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 30px;
+    color: #718096;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.login-link a:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+}
