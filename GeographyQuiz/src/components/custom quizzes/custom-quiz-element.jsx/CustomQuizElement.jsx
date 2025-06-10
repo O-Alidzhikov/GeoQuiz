@@ -2,17 +2,19 @@ import "./CustomQuizElement.css";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../../contexts/userContext";
 import { useContext,useState } from "react";
-import { deleteQuiz } from "../../../services/quizService"
+import { deleteQuiz } from "../../../services/quizService";
+import { useNavigate } from "react-router";
 
 export default function CustomElement({ quiz }) {
 const { userId } = useContext(UserContext);
-const [isDeleted, setIsDeleted] = useState(false)  
+const navigate = useNavigate();
 
 
  async function  quizDelete(){
+   navigate("/")
     if(userId === quiz.owner){
       const deletedQuiz = await deleteQuiz(quiz._id)
-      setIsDeleted(true)
+     
       return deletedQuiz
     } else {
       console.log("this is not the owner")
@@ -27,6 +29,7 @@ const [isDeleted, setIsDeleted] = useState(false)
       <Link className="quiz-element-button" to={`/quizzes/${quiz._id}`}>
         Start Quiz Now
       </Link>
+      
       <button className="quiz-element-delete" onClick={quizDelete}>Delete Quiz</button>
       <button className="quiz-element-edit">Edit Quiz</button>
     </div>
