@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./quiz.css";
 import Questions from "../quiz/questions/questions";
-import { getQuizzes } from "../../../services/quizService";
+import { getQuiz } from "../../../services/quizService";
 
 export default function Quiz() {
   const { id } = useParams();
@@ -17,10 +17,9 @@ export default function Quiz() {
 
   useEffect(() => {
     const fetchQuiz = async () => {
-      const data = await getQuizzes();
-      const selectedQuiz = data.find((q) => q._id === id);
-      if (selectedQuiz) {
-        setQuestions(selectedQuiz.questions);
+      const quiz = await getQuiz(id);
+      if (quiz) {
+        setQuestions(quiz.questions);
       }
     };
     fetchQuiz();

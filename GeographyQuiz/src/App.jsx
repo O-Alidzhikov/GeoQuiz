@@ -14,6 +14,7 @@ import Quiz from "./components/custom quizzes/quiz/quiz";
 import MapQuizzes from "./components/map quizzes/mapQuizzes";
 import QuestionGenerator from "./components/questionGenerator/questionGenerator";
 import QuizOptions from "./components/custom quizzes/customQuizOptions";
+import QuizEdit from "./components/quiz edit/quizEdit";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/africa-quiz" element={<Africa />}></Route>
           <Route path="/quizzes/:id" element={<Quiz />} />
           <Route path="/quiz-create" element={<QuestionGenerator />}></Route>
+          <Route path="/quiz-edit/:id" element={<QuizEdit />} />
           <Route path="/custom-quizzes" element={<QuizOptions />}></Route>
         </Routes>
       </AuthProvider>

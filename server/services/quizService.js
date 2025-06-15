@@ -23,6 +23,16 @@ exports.getQuizzes = async () => {
   }
 };
 
+exports.getQuiz = async (_id) => {
+  try {
+    const quiz = await Quiz.findById(_id); 
+    return quiz; 
+  } catch (error) {
+    console.error('Error getting quizzes:', error);
+    throw error; 
+  }
+};
+
 
 exports.deleteQuiz = async (quizId) => {
   try {
