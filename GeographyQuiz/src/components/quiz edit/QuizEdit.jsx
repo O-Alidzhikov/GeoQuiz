@@ -1,34 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import QuizCreate from "./quiz create/QuizCreate";
-import { createQuiz } from "../../services/quizService";
-// import {q}
-import { useNavigate } from "react-router";
-import { useParams } from "react-router-dom";
+import { editQuiz, getQuiz } from "../../services/quizService";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
-import { useContext } from "react";
-
 
 export default function QuizEdit() {
-  const { quizId } = useParams();  
-  const [numberQuestions, setNumberQuestions] = useState(0);
-  const [quizTitle, setQuizTitle] = useState("");
-  const [quizDescription, setDescription] = useState("");
+  const { id } = useParams();
+  const navigate = useNavigate();
   const { userId } = useContext(UserContext);
 
-  const navigate = useNavigate();
+  const [questions, setQuestions] = useState([]);
+  const [quizTitle, setQuizTitle] = useState("");
+  const [quizDescription, setDescription] = useState("");
+  const [numberQuestions, setNumberQuestions] = useState(0);
 
-  useEffect(() =>{
-
-  })
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      const fetchedQuiz = await getQuiz(id);
+      if (fetchedQuiz) {
+        setQuestions(fetchedQuiz.questions);
+        setQuizTitle(fetchedQuiz.title);
+        setDescription(fetchedQuiz.description);
+        setNumberQuestions(fetchedQuiz.questions.length);
+      }
+    };
+    fetchQuiz();
+  }, [id]);
 
   async function formHandler(e) {
     e.preventDefault();
     const quizData = Object.fromEntries(new FormData(e.currentTarget));
 
-    let questions = [];
+    const updatedQuestions = [];
 
     for (let i = 1; i <= numberQuestions; i++) {
-      questions.push({
+      updatedQuestions.push({
         question: quizData[`question - ${i}`],
         optionA: quizData[`optionA - ${i}`],
         optionB: quizData[`optionB - ${i}`],
@@ -37,22 +43,29 @@ export default function QuizEdit() {
         answer: quizData[`answer - ${i}`],
       });
     }
-    const quiz = {
+
+    const editedQuiz = {
+      id: id,
       title: quizTitle,
-      questions: questions,
-      owner: userId,
       description: quizDescription,
+      questions: updatedQuestions,
+      owner: userId,
     };
 
-    console.log(quiz);
-    await editQuiz(quiz);
-    navigate("/");
+    console.log("Sending edited quiz:", editedQuiz);
+
+    try {
+      await editQuiz(editedQuiz);
+      navigate("/");
+    } catch (err) {
+      console.error("Error editing quiz:", err);
+    }
   }
 
   return (
     <div className="question-generator-container">
       <div className="question-header">
-        <h4>Welcome! Hear you can edit your quiz:</h4>
+        <h4>Welcome! Here you can edit your quiz:</h4>
       </div>
 
       <div className="quiz-settings-card">
@@ -78,27 +91,20 @@ export default function QuizEdit() {
         </div>
       </div>
 
-      <div className="controls">
-        <div className="input-group">
-          <label htmlFor="question-count">Number of Questions:</label>
-          <input
-            type="number"
-            id="question-count"
-            min="0"
-            value={numberQuestions}
-            onChange={(e) =>
-              setNumberQuestions(Math.max(0, Number(e.target.value)))
-            }
-            onWheel={(e) => e.target.blur()}
-          />
-        </div>
-      </div>
-
       <form className="quiz-generator-container" onSubmit={formHandler}>
-        {[...Array(numberQuestions)].map((_, i) => (
-          <QuizCreate key={i} questionNumber={i + 1} />
+        {questions.map((question, index) => (
+          <QuizCreate
+            key={question._id || index}
+            questionNumber={index + 1}
+            initialQuestion={question.question}
+            initialOptionA={question.optionA}
+            initialOptionB={question.optionB}
+            initialOptionC={question.optionC}
+            initialOptionD={question.optionD}
+            initialAnswer={question.answer}
+          />
         ))}
-        {numberQuestions > 0 && <button type="submit">Edit Quiz</button>}
+        {questions.length > 0 && <button type="submit">Save Changes</button>}
       </form>
     </div>
   );

@@ -1,14 +1,22 @@
 import React from 'react';
 import './QuizCreate.css';
 
-export default function QuizCreate({ questionNumber }) {
+export default function QuizCreate({ 
+  questionNumber, 
+  initialQuestion = "", 
+  initialOptionA = "", 
+  initialOptionB = "", 
+  initialOptionC = "", 
+  initialOptionD = "", 
+  initialAnswer = "" 
+}) {
   return (
     <div className="quiz-creator-container">
       <header className="quiz-header">
         <h1>Question {questionNumber}</h1>
       </header>
 
-      <div className="quiz-form" >
+      <div className="quiz-form">
         <div className="form-group">
           <label htmlFor="question">Question</label>
           <input
@@ -17,6 +25,7 @@ export default function QuizCreate({ questionNumber }) {
             name={`question - ${questionNumber}`}
             placeholder="Enter your question here"
             required
+            defaultValue={initialQuestion}
           />
         </div>
 
@@ -31,6 +40,7 @@ export default function QuizCreate({ questionNumber }) {
                 name={`optionA - ${questionNumber}`}
                 placeholder="Enter option A"
                 required
+                defaultValue={initialOptionA}
               />
             </div>
             <div className="form-group">
@@ -41,6 +51,7 @@ export default function QuizCreate({ questionNumber }) {
                 name={`optionB - ${questionNumber}`}
                 placeholder="Enter option B"
                 required
+                defaultValue={initialOptionB}
               />
             </div>
             <div className="form-group">
@@ -51,6 +62,7 @@ export default function QuizCreate({ questionNumber }) {
                 name={`optionC - ${questionNumber}`}
                 placeholder="Enter option C"
                 required
+                defaultValue={initialOptionC}
               />
             </div>
             <div className="form-group">
@@ -61,6 +73,7 @@ export default function QuizCreate({ questionNumber }) {
                 name={`optionD - ${questionNumber}`}
                 placeholder="Enter option D"
                 required
+                defaultValue={initialOptionD}
               />
             </div>
             <div className="form-group">
@@ -70,6 +83,8 @@ export default function QuizCreate({ questionNumber }) {
                 id={`answer - ${questionNumber}`}
                 name={`answer - ${questionNumber}`}
                 placeholder="Write the correct answer here"
+                required
+                defaultValue={initialAnswer}
               />
             </div>
           </div>

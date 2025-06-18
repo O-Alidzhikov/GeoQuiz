@@ -37,17 +37,41 @@ export async function getQuizzes() {
 
 export async function getQuiz(quizId) {
   try {
-    const response = await fetch(`${baseUrl}/quiz-create/get-one?quizId=${quizId}`);
+    const response = await fetch(
+      `${baseUrl}/quiz-create/get-one?quizId=${quizId}`
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const result = await response.json();
-    return result
+    return result;
   } catch (error) {
     console.error("Failed to fetch quiz", error);
   }
 }
+
+export async function editQuiz(editedQuiz) {
+  try {
+    const response = await fetch(`${baseUrl}/quiz-create/edit`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editedQuiz),
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
+    console.log("we did it client side");
+    return await response.json();
+  } catch (error) {
+    console.error("Error editing quiz on client side:", error);
+    throw error;
+  }
+}
+
 
 export async function deleteQuiz(quizId) {
   try {

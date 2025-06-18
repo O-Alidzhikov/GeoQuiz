@@ -13,6 +13,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+
+router.patch("/edit", async (req, res) => {
+  const quizData = req.body;
+   const { _id } = req.body;
+  console.log(quizData);
+
+  try {
+    const editedQuiz = await quizService.edit(quizData.id,quizData);
+    res.status(201).json(editedQuiz);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to edit quiz" });
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const quizzes = await quizService.getQuizzes();

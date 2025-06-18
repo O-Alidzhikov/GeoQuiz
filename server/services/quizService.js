@@ -12,6 +12,26 @@ exports.create = async (questions) => {
   }
 } 
 
+exports.edit = async (quizId, updatedData) => {
+  try {
+    const updatedQuiz = await Quiz.findByIdAndUpdate(
+      quizId,
+      updatedData,
+      { new: true, runValidators: true } 
+    );
+
+    if (!updatedQuiz) {
+      throw new Error("Quiz not found");
+    }
+
+    console.log("Quiz successfully updated");
+    return updatedQuiz;
+  } catch (error) {
+    console.error("Error editing quiz:", error);
+    throw new Error("Error editing quiz");
+  }
+};
+
 
 exports.getQuizzes = async () => {
   try {
