@@ -70,8 +70,8 @@ export default function Africa() {
       <div className="quiz-map-body">
         <div className="counter">
           <div className="counter-stats">
-            <p>{correctCount}/54 correct</p>
-            <p>{wrongCount}/54 wrong</p>
+            <p>{correctCount}/50 correct</p>
+            <p>{wrongCount}/50 wrong</p>
           </div>
           <p className="current-country">Select: {currentCountry}</p>
           <div className="quiz-map-controls">
@@ -137,7 +137,7 @@ export default function Africa() {
             <path
               inkscape:connector-curvature="0"
               id="CI"
-              name="Côte d'Ivoire"
+              name="Ivory Coast"
               data-id="CI"
               d="m 230.4,373.8 -5,2.1 -2.9,1.7 -1.8,-5.9 -3.5,1.6 -2.1,-0.3 -2.3,4 -9.4,-0.1 -3.3,-2.1 -1.6,1.3 -2.5,1.1 -1,4.7 2.8,5.7 3,11.1 -4.6,1.6 -1.1,1.9 0.9,2.7 -0.8,6.1 -1.9,0 -0.6,4 1.2,6.7 -2.7,6.1 3.6,3.8 3.8,0.9 5.2,5.8 0.3,5.5 -1.1,1.7 -1,11.4 2.3,0.4 12.1,-5.1 8.5,-4 14.5,-2.4 7.8,-0.2 8.5,2.7 5.6,-0.1 0.5,-5.5 -5.2,-11.9 3.2,-15.6 5.1,-11.6 -3.2,-19.7 -8.3,-3.6 -5.7,0.6 -4.3,3.4 -5.4,-2.9 -2.1,-4.6 -5.5,-3 z"
             />

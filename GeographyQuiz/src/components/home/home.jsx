@@ -1,51 +1,55 @@
-import './home.css'
-
+import './home.css';
 
 export default function Home() {
+  return (
+    <div className="home-container">
+      <header className="home-hero">
+        <h1 className="home-title">Welcome to My Project</h1>
+        <p className="home-subtitle">Fun Quizzes</p>
+      </header>
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) =>{
-            console.log(entry)
-            if(entry.isIntersecting) {
-                entry.target.classList.add("show");
-            }
-        })
-    })
-
-    const hiddenElements = document.querySelectorAll(".hidden")
-    hiddenElements.forEach((element) => observer.observe(element))
-
-
-
-    return (
-        
-      <div className="home-container">
-        <div className="home-section">
-          <h1 className="">Welcome to Our Website</h1>
-          <p className="">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.
+      <section className="home-features">
+        <div className="home-feature-card">
+          <h2 className="home-feature-title">Feature One</h2>
+          <p className="home-feature-desc">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </p>
         </div>
-  
-        <section className="hidden">
-          <div className="home-section">
-            <h2 className="">Feature One</h2>
-            <p className="">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </div>
-          </section>
-          <section className="hidden">
-          <div className="home-section">
-            <h2 className="">Feature Two</h2>
-            <p className="">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-          </section>
-          <section className="hidden">
-          <div className="home-section">
-            <h2 className="">Feature Three</h2>
-            <p className="">Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-          </div>
-          </section>
-       
-      </div>
-    );
-  }
+
+        <div className="home-feature-card">
+          <h2 className="home-feature-title">Feature Two</h2>
+          <p className="home-feature-desc">
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+
+        <div className="home-feature-card">
+          <h2 className="home-feature-title">Feature Three</h2>
+          <p className="home-feature-desc">
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+      </section>
+
+      <section className="home-about">
+        <h2 className="home-section-title">About The Project</h2>
+        <div className="home-about-content">
+          <p className="home-about-text">
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <p className="home-about-text">
+          blah blah blah
+          </p>
+        </div>
+      </section>
+
+      <section className="home-cta">
+        <h2 className="home-cta-title">Ready to Get Started?</h2>
+        <p className="home-cta-text">
+          Lorem ipsum
+        </p>
+        <button className="home-cta-button">Sign Up Today</button>
+      </section>
+    </div>
+  );
+}

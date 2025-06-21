@@ -1,27 +1,128 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
-
+/* Home Container */
 .home-container {
-    background-color: #131316;
-    color: #ffffff;
-    font-family: "Poppins" , sans-serif;
-    padding: 0;
-    margin: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+  color: #2d3748;
 }
 
-
-
-.home-section {
-    display: grid;
-    place-items: center;
-    align-content: center;
-    min-height: 100vh;
+/* Hero Section */
+.home-hero {
+  text-align: center;
+  padding: 4rem 0;
+  margin-bottom: 3rem;
+  background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+  border-radius: 12px;
 }
 
-.hidden {
-    opacity: 0;
-    transition: all 1s;
+.home-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a365d;
+  margin-bottom: 1rem;
 }
 
-.show {
-    opacity: 1;
+.home-subtitle {
+  font-size: 1.25rem;
+  color: #4a5568;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Features Grid */
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.home-feature-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.home-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.home-feature-title {
+  font-size: 1.5rem;
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+}
+
+.home-feature-desc {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* About Section */
+.home-about {
+  margin: 5rem 0;
+  padding: 3rem;
+  background: #f7fafc;
+  border-radius: 12px;
+}
+
+.home-section-title {
+  text-align: center;
+  font-size: 2rem;
+  color: #1a365d;
+  margin-bottom: 2rem;
+}
+
+.home-about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-about-text {
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  color: #4a5568;
+}
+
+/* Call to Action */
+.home-cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+  color: white;
+  border-radius: 12px;
+  margin-top: 3rem;
+}
+
+.home-cta-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.home-cta-text {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  opacity: 0.9;
+}
+
+.home-cta-button {
+  background: white;
+  color: #3182ce;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.home-cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
