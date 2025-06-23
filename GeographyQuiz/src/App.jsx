@@ -15,6 +15,7 @@ import MapQuizzes from "./components/map quizzes/mapQuizzes";
 import QuestionGenerator from "./components/questionGenerator/questionGenerator";
 import QuizOptions from "./components/custom quizzes/customQuizOptions";
 import QuizEdit from "./components/quiz edit/quizEdit";
+import AuthGuard from "./components/guards/AuthGuard";
 
 function App() {
   return (
@@ -25,16 +26,18 @@ function App() {
           <Route path="/" element={<Home />}></Route>
 
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/logout" element={<Logout />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/europe-quiz" element={<Europe />}></Route>
           <Route path="/map-quizzes" element={<MapQuizzes />}></Route>
+          <Route element={<AuthGuard />}>
+            <Route path="/quiz-create" element={<QuestionGenerator />}></Route>
+            <Route path="/quiz-edit/:id" element={<QuizEdit />} />
+            <Route path="/logout" element={<Logout />}></Route>
+          </Route>
           <Route path="/asia-quiz" element={<Asia />}></Route>
           <Route path="/south-america-quiz" element={<SouthAmerica />}></Route>
           <Route path="/africa-quiz" element={<Africa />}></Route>
           <Route path="/quizzes/:id" element={<Quiz />} />
-          <Route path="/quiz-create" element={<QuestionGenerator />}></Route>
-          <Route path="/quiz-edit/:id" element={<QuizEdit />} />
           <Route path="/custom-quizzes" element={<QuizOptions />}></Route>
         </Routes>
       </AuthProvider>
