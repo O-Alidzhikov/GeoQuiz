@@ -1,0 +1,119 @@
+.not-found-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #0a0f1c;
+  color: #cce7ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.glitch {
+  font-size: 8rem;
+  position: relative;
+  color: #00bfff;
+  animation: glitch 1s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  color: #00ffff;
+  background: transparent;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0);
+}
+
+.glitch::before {
+  animation: glitchTop 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  animation: glitchBottom 1.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px 2px #00ffff, -2px -2px #0050ff;
+  }
+  20% {
+    text-shadow: -2px -2px #00ffff, 2px 2px #0050ff;
+  }
+  40% {
+    text-shadow: 2px -2px #00ffff, -2px 2px #0050ff;
+  }
+  60% {
+    text-shadow: -2px 2px #00ffff, 2px -2px #0050ff;
+  }
+  80% {
+    text-shadow: 2px 2px #00ffff, -2px -2px #0050ff;
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+@keyframes glitchTop {
+  0% {
+    clip: rect(0, 900px, 0, 0);
+  }
+  10% {
+    clip: rect(0, 900px, 40px, 0);
+  }
+  20% {
+    clip: rect(0, 900px, 0, 0);
+  }
+  30% {
+    clip: rect(0, 900px, 25px, 0);
+  }
+  100% {
+    clip: rect(0, 900px, 0, 0);
+  }
+}
+
+@keyframes glitchBottom {
+  0% {
+    clip: rect(0, 900px, 0, 0);
+  }
+  10% {
+    clip: rect(50px, 900px, 100px, 0);
+  }
+  20% {
+    clip: rect(0, 900px, 0, 0);
+  }
+  30% {
+    clip: rect(40px, 900px, 80px, 0);
+  }
+  100% {
+    clip: rect(0, 900px, 0, 0);
+  }
+}
+
+.not-found-text {
+  font-size: 1.5rem;
+  margin: 20px 0;
+  color: #a5c8ff;
+}
+
+.home-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.home-button:hover {
+  background-color: #339dff;
+  box-shadow: 0 0 15px rgba(51, 157, 255, 0.7);
+}

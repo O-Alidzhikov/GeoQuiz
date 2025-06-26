@@ -16,6 +16,7 @@ import QuestionGenerator from "./components/questionGenerator/questionGenerator"
 import QuizOptions from "./components/custom quizzes/customQuizOptions";
 import QuizEdit from "./components/quiz edit/quizEdit";
 import AuthGuard from "./components/guards/AuthGuard";
+import PageNotFound from "./components/404/notFound";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Header></Header>
         <Routes>
           <Route path="/" element={<Home />}></Route>
+           <Route path="*" element={<PageNotFound />}></Route>
 
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
