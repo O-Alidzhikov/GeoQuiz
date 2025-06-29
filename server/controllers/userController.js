@@ -15,16 +15,20 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   const userData = await userService.login(email, password);
-  // console.log(token)
+
+  const isProd = process.env.NODE_ENV === "production";
 
   res.cookie("auth-token", userData.token, {
     httpOnly: true,
-    secure: false,
-    sameSite: "none",
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
     path: "/",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
+
   res.status(200).json({ user: userData.user, token: userData.token });
 });
+
 
 
 router.get("/me", isAuth, (req, res) => {

@@ -16,7 +16,6 @@ router.post("/", async (req, res) => {
 
 router.patch("/edit", async (req, res) => {
   const quizData = req.body;
-   const { _id } = req.body;
   console.log(quizData);
 
   try {

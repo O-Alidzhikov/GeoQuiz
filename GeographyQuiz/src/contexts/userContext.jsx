@@ -1,38 +1,46 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useEffect } from "react";
 import { useNavigate } from "react-router";
-import Cookies from "js-cookie";
 import * as userService from "../services/userService";
+import useToken from "../hooks/useToken";
+import usePersistedUser from "../hooks/usePersistedUser";
 
 export const UserContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useToken();
+  const [user, setUser] = usePersistedUser();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
+      if (!token) return;
+
       try {
         const response = await userService.getCurrentUser();
         setUser(response);
       } catch (err) {
-        console.log("Not logged in or token expired.");
+        console.log("Token expired or user not found");
+        setToken(null);
+        setUser(null);
       }
     };
 
-    fetchUser();
-  }, []);
+    if (!user && token) {
+      fetchUser();
+    }
+  }, [token]);
 
-  async function loginSubmitHandler(values) {
+  const loginSubmitHandler = async (values) => {
     try {
       const response = await userService.login(values.email, values.password);
-      console.log(response.user);
-      setIsAuthenticated(response.user);
-
+      setToken(response.token);
+      setUser(response.user);
       navigate("/");
     } catch (error) {
       console.error("Login failed:", error);
     }
-  }
+  };
+
   const registerSubmitHandler = async (values) => {
     try {
       const response = await userService.register(
@@ -41,12 +49,8 @@ const AuthProvider = ({ children }) => {
         values.password,
         values.repeatPassword
       );
-      console.log("this is the response", response.user);
-      navigate("/login");
-
       if (response.ok) {
-        setIsAuthenticated(true);
-        console.log("Registration successful:", response);
+        navigate("/login");
       }
     } catch (error) {
       console.error("Registration failed:", error);
@@ -54,21 +58,22 @@ const AuthProvider = ({ children }) => {
   };
 
   const logoutHandler = () => {
-    setIsAuthenticated(false);
-    Cookies.remove("auth-token");
+    setToken(null);
+    setUser(null);
     navigate("/");
   };
 
   const values = {
-    isAuthenticated,
+    isAuthenticated: !!user,
     registerSubmitHandler,
     loginSubmitHandler,
     logoutHandler,
-    username: isAuthenticated.username,
-    email: isAuthenticated.email,
-    // password: isAuthenticated.password,
-    userId: isAuthenticated._id,
+    username: user?.username,
+    email: user?.email,
+    userId: user?._id,
+    token,
   };
+
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
 };
 
