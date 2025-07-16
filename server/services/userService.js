@@ -9,7 +9,7 @@ exports.register = async (userData) => {
     return newUser;
   } catch (error) {
     console.error("Error creating user:", error);
-    throw new Error("Error registering user");
+    throw error;
   }
 };
 

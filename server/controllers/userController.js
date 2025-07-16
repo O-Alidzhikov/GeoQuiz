@@ -1,14 +1,30 @@
 const router = require("express").Router();
-const {isAuth} = require("../middlewares/authMiddleware")
+const { isAuth } = require("../middlewares/authMiddleware");
 const userService = require("../services/userService");
 
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   console.log(username, email, password);
 
-  const highScore = 0;
+  try {
+    await userService.register({ username, email, password });
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (err) {
+    
+   // nsole.error("Caught in controller:", err.name); 
+    if (err.name === "ValidationError") {
+      const errors = Object.values(err.errors).map((e) => e.message);
 
-  await userService.register({ username, email, password, highScore });
+      return res.status(400).json({
+        message: "Validation failed",
+        errors,
+      });
+    }
+
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
 });
 
 router.post("/login", async (req, res) => {
@@ -28,8 +44,6 @@ router.post("/login", async (req, res) => {
 
   res.status(200).json({ user: userData.user, token: userData.token });
 });
-
-
 
 router.get("/me", isAuth, (req, res) => {
   if (!req.user) {

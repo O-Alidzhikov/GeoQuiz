@@ -22,30 +22,30 @@ export async function login(email, password) {
   }
 }
 
-export async function register(username, email, password, repeatpassword) {
-  const highScore = 0;
-  const registerData = { username, email, password, repeatpassword };
+export async function register(username, email, password) {
+  const registerData = { username, email, password };
 
-  try {
-    console.log(registerData);
+  
     const response = await fetch(`${baseUrl}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(registerData),
     });
 
-    console.log("Raw Response:", response);
+    const result = await response.json(); 
 
     if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error registering:", error);
+   
+    const error = new Error(result.message || "Registration failed");
+    error.status = response.status;
+    error.data = result;  
     throw error;
   }
+
+    return result; 
+
 }
+
 
 export async function getCurrentUser() {
   const response = await fetch("http://localhost:2000/me", {

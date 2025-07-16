@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
     type: String, 
     required: true,
     trim: true,
-    minlength: 3
+    minlength: [3, 'Username must be at least 3 characters long'],
+    maxlength: [30, 'Username must be less than 30 characters long']
   },
   email: { 
     type: String, 
@@ -19,12 +20,9 @@ const userSchema = new mongoose.Schema({
   password: { 
     type: String, 
     required: true,
-    minlength: [6, 'Password must be at least 6 characters long']
+    minlength: [6, 'Password must be at least 6 characters long'],
+    maxlength: [120,'Password must be less than 120 characters long']
   },
-  highScore: { 
-    type: Number, 
-    default: 0 
-  }
 });
 
 userSchema.pre("save", async function () {

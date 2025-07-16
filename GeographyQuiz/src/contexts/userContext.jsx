@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import * as userService from "../services/userService";
 import useToken from "../hooks/useToken";
@@ -9,6 +9,7 @@ export const UserContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useToken();
   const [user, setUser] = usePersistedUser();
+  const [err, setErr] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,17 +44,24 @@ const AuthProvider = ({ children }) => {
 
   const registerSubmitHandler = async (values) => {
     try {
+      setErr("");
       const response = await userService.register(
         values.username,
         values.email,
-        values.password,
-        values.repeatPassword
+        values.password
       );
       if (response.ok) {
         navigate("/login");
       }
-    } catch (error) {
-      console.error("Registration failed:", error);
+    } catch (err) {
+      console.log("Validation errors:", err.data.errors);
+
+      if (err.status === 400) {
+        setErr(err.data.errors || [err.message]);
+        console.log(err);
+      } else {
+        setErr([err.message || "Something went wrong"]);
+      }
     }
   };
 
@@ -72,6 +80,7 @@ const AuthProvider = ({ children }) => {
     email: user?.email,
     userId: user?._id,
     token,
+    err: err,
   };
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
