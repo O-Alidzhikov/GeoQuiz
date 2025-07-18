@@ -33,18 +33,25 @@ const AuthProvider = ({ children }) => {
 
   const loginSubmitHandler = async (values) => {
     try {
+      setErr([]);
       const response = await userService.login(values.email, values.password);
       setToken(response.token);
       setUser(response.user);
       navigate("/");
     } catch (error) {
-      console.error("Login failed:", error);
+      console.log("Validation errors:", error.message);
+
+      if (error.status === 400) {
+        setErr(error.message);
+      } else {
+        setErr("Something went wrong");
+      }
     }
   };
 
   const registerSubmitHandler = async (values) => {
     try {
-      setErr("");
+      setErr([]);
       const response = await userService.register(
         values.username,
         values.email,

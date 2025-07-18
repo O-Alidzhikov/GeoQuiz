@@ -37,6 +37,6 @@ exports.login = async (email, password) => {
     return { token: token, user: user };
   } catch (err) {
     console.error("Error signing the JWT:", err.message);
-    throw new Error("Failed to generate authentication token.");
+    throw err
   }
 };

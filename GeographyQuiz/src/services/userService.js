@@ -11,13 +11,17 @@ export async function login(email, password) {
       credentials: "include",
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
+      const error = new Error(result.message || result.err?.message || "Login failed");
+      error.status = response.status;
+      error.data = result;
+      throw error;
     }
 
-    return await response.json();
+    return result;
   } catch (error) {
-    console.error("Error logging in:", error);
     throw error;
   }
 }
@@ -25,27 +29,23 @@ export async function login(email, password) {
 export async function register(username, email, password) {
   const registerData = { username, email, password };
 
-  
-    const response = await fetch(`${baseUrl}/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(registerData),
-    });
+  const response = await fetch(`${baseUrl}/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(registerData),
+  });
 
-    const result = await response.json(); 
+  const result = await response.json();
 
-    if (!response.ok) {
-   
+  if (!response.ok) {
     const error = new Error(result.message || "Registration failed");
     error.status = response.status;
-    error.data = result;  
+    error.data = result;
     throw error;
   }
 
-    return result; 
-
+  return result;
 }
-
 
 export async function getCurrentUser() {
   const response = await fetch("http://localhost:2000/me", {

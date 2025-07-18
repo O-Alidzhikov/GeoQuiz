@@ -10,8 +10,7 @@ router.post("/register", async (req, res) => {
     await userService.register({ username, email, password });
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
-    
-   // nsole.error("Caught in controller:", err.name); 
+    // nsole.error("Caught in controller:", err.name);
     if (err.name === "ValidationError") {
       const errors = Object.values(err.errors).map((e) => e.message);
 
@@ -20,7 +19,6 @@ router.post("/register", async (req, res) => {
         errors,
       });
     }
-
     res.status(500).json({
       message: "Something went wrong",
     });
@@ -30,19 +28,25 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  const userData = await userService.login(email, password);
+  try {
+    const userData = await userService.login(email, password);
 
-  const isProd = process.env.NODE_ENV === "production";
+    const isProd = process.env.NODE_ENV === "production";
 
-  res.cookie("auth-token", userData.token, {
-    httpOnly: true,
-    secure: isProd,
-    sameSite: isProd ? "none" : "lax",
-    path: "/",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+    res.cookie("auth-token", userData.token, {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
-  res.status(200).json({ user: userData.user, token: userData.token });
+    res.status(200).json({ user: userData.user, token: userData.token });
+  } catch (err) {
+    console.log(err.message);
+    
+  return res.status(400).json({ message: err.message });
+  }
 });
 
 router.get("/me", isAuth, (req, res) => {
