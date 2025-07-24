@@ -96,3 +96,36 @@ button[type="submit"]:hover {
     padding: 1rem;
   }
 }
+
+
+.general-errors {
+  background: #fff5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #f56565;
+}
+
+.error-message {
+  color: #e53e3e;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  padding-left: 0.5rem;
+}
+
+.quiz-wrapper {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.question-errors {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #fff5f5;
+  border-radius: 6px;
+}
+
+.submit-btn {
+  margin-top: 2rem;
+  align-self: center;
+}

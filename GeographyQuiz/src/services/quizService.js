@@ -8,14 +8,22 @@ export async function createQuiz(questions) {
       body: JSON.stringify(questions),
       credentials: "include",
     });
+
+    const result = await response.json(); 
+
     if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
+      const error = new Error(
+        result.message || result.error || "Quiz creation failed" 
+      );
+      error.status = response.status;
+      error.data = result;
+      throw error;
     }
-    console.log("we did it client side");
-    return await response.json();
-  } catch {
-    console.error("Error creating quiz in:", error);
-    throw error;
+
+    return result;
+  } catch (error) {
+    console.error("Error creating quiz:", error.message);
+    throw error; 
   }
 }
 
@@ -48,6 +56,7 @@ export async function getQuiz(quizId) {
     return result;
   } catch (error) {
     console.error("Failed to fetch quiz", error);
+    throw error;
   }
 }
 
@@ -71,7 +80,6 @@ export async function editQuiz(editedQuiz) {
     throw error;
   }
 }
-
 
 export async function deleteQuiz(quizId) {
   try {

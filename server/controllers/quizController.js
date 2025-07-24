@@ -1,25 +1,28 @@
 const router = require("express").Router();
 const quizService = require("../services/quizService");
+const { validateQuestions } = require("../validators/quizValidators");
 
 router.post("/", async (req, res) => {
   const quizData = req.body;
-  console.log(quizData);
 
   try {
+    validateQuestions(quizData.questions); 
     const createdQuiz = await quizService.create(quizData);
     res.status(201).json(createdQuiz);
   } catch (err) {
-    res.status(500).json({ message: "Failed to create quiz" });
+    res.status(400).json({
+      message: "Quiz validation failed",
+       errors: err.message.split(" | "),
+    });
   }
 });
-
 
 router.patch("/edit", async (req, res) => {
   const quizData = req.body;
   console.log(quizData);
 
   try {
-    const editedQuiz = await quizService.edit(quizData.id,quizData);
+    const editedQuiz = await quizService.edit(quizData.id, quizData);
     res.status(201).json(editedQuiz);
   } catch (err) {
     res.status(500).json({ message: "Failed to edit quiz" });

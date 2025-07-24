@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import QuizCreate from "./quiz create/QuizCreate";
 import { createQuiz } from "../../services/quizService";
 import { useNavigate } from "react-router";
 import { UserContext } from "../../contexts/userContext";
-import { useContext } from "react";
 import "./questionGenerator.css";
 
 export default function QuestionGenerator() {
   const [numberQuestions, setNumberQuestions] = useState(0);
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setDescription] = useState("");
+  const [errors, setErrors] = useState({});
   const { userId } = useContext(UserContext);
-
   const navigate = useNavigate();
 
   async function formHandler(e) {
     e.preventDefault();
-    const quizData = Object.fromEntries(new FormData(e.currentTarget));
+    setErrors({});
 
-    let questions = [];
+    const quizData = Object.fromEntries(new FormData(e.currentTarget));
+    const questions = [];
 
     for (let i = 1; i <= numberQuestions; i++) {
       questions.push({
@@ -30,22 +30,52 @@ export default function QuestionGenerator() {
         answer: quizData[`answer - ${i}`],
       });
     }
-    const quiz = {
-      title: quizTitle,
-      questions: questions,
-      owner: userId,
-      description: quizDescription,
-    };
 
-    console.log(quiz);
-    await createQuiz(quiz);
-    navigate("/");
+    try {
+      await createQuiz({
+        title: quizTitle,
+        questions,
+        owner: userId,
+        description: quizDescription,
+      });
+      navigate("/");
+    } catch (error) {
+      const newErrors = {};
+
+      if (error.data?.errors) {
+        error.data.errors.forEach((err) => {
+          const questionMatch = err.match(/Question (\d+): (.+)/);
+          if (questionMatch) {
+            const [, qNum, message] = questionMatch;
+            newErrors[qNum] = newErrors[qNum] || [];
+            newErrors[qNum].push(message);
+          } else {
+            newErrors.general = newErrors.general || [];
+            newErrors.general.push(err);
+          }
+        });
+      } else {
+        newErrors.general = [error.message];
+      }
+
+      setErrors(newErrors);
+    }
   }
 
   return (
     <div className="question-generator-container">
       <div className="question-header">
         <h4>Welcome! First tell us about your quiz:</h4>
+
+        {errors.general && (
+          <div className="error-messages">
+            {errors.general.map((err, i) => (
+              <div key={`general-err-${i}`} className="error-message">
+                🚨 {err}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="quiz-settings-card">
@@ -57,6 +87,7 @@ export default function QuestionGenerator() {
             value={quizTitle}
             onChange={(e) => setQuizTitle(e.target.value)}
             placeholder="Enter quiz title"
+            className={errors.general ? "input-error" : ""}
           />
         </div>
 
@@ -88,10 +119,33 @@ export default function QuestionGenerator() {
       </div>
 
       <form className="quiz-generator-container" onSubmit={formHandler}>
-        {[...Array(numberQuestions)].map((_, i) => (
-          <QuizCreate key={i} questionNumber={i + 1} />
-        ))}
-        {numberQuestions > 0 && <button type="submit">Create Quiz</button>}
+        {[...Array(numberQuestions)].map((_, i) => {
+          const questionNum = i + 1;
+          return (
+            <div key={`question-${questionNum}`} className="quiz-wrapper">
+              <QuizCreate questionNumber={questionNum} />
+
+              {errors[questionNum] && (
+                <div className="question-errors">
+                  {errors[questionNum].map((err, j) => (
+                    <div
+                      key={`q${questionNum}-err-${j}`}
+                      className="error-message"
+                    >
+                      {err}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+
+        {numberQuestions > 0 && (
+          <button type="submit" className="submit-btn">
+            Create Quiz
+          </button>
+        )}
       </form>
     </div>
   );

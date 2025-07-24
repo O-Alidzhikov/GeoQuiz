@@ -1,7 +1,7 @@
 .quiz-creator-container {
   width: 100%;
-  max-width: 900px;         /* Added */
-  margin: 0 auto;           /* Added */
+  max-width: 900px;        
+  margin: 0 auto;           
   padding: 1.5rem 2rem;
   background-color: #ffffff;
   border-radius: 16px;
@@ -86,5 +86,23 @@
 @media (max-width: 768px) {
   .quiz-creator-container {
     padding: 1rem;
+  }
+}
+
+
+.input-error {
+  border-color: #fc8181 !important;
+  background-color: #fff5f5;
+}
+
+
+.options-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .options-grid {
+    grid-template-columns: 1fr;
   }
 }

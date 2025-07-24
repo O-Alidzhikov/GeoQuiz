@@ -8,7 +8,7 @@ exports.create = async (questions) => {
     return newQuiz;
   } catch (error) {
     console.error("Error creating quiz:", error);
-    throw new Error("Error creating quiz");
+    throw error
   }
 } 
 
@@ -28,7 +28,7 @@ exports.edit = async (quizId, updatedData) => {
     return updatedQuiz;
   } catch (error) {
     console.error("Error editing quiz:", error);
-    throw new Error("Error editing quiz");
+    throw error
   }
 };
 

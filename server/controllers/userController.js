@@ -10,7 +10,6 @@ router.post("/register", async (req, res) => {
     await userService.register({ username, email, password });
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
-    // nsole.error("Caught in controller:", err.name);
     if (err.name === "ValidationError") {
       const errors = Object.values(err.errors).map((e) => e.message);
 
