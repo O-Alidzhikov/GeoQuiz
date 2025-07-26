@@ -71,7 +71,7 @@ export default function QuestionGenerator() {
           <div className="error-messages">
             {errors.general.map((err, i) => (
               <div key={`general-err-${i}`} className="error-message">
-                🚨 {err}
+                 {err}
               </div>
             ))}
           </div>

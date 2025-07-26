@@ -52,14 +52,13 @@ const AuthProvider = ({ children }) => {
   const registerSubmitHandler = async (values) => {
     try {
       setErr([]);
-      const response = await userService.register(
+      await userService.register(
         values.username,
         values.email,
         values.password
       );
-      if (response.ok) {
-        navigate("/login");
-      }
+
+      navigate("/login");
     } catch (err) {
       console.log("Validation errors:", err.data.errors);
 

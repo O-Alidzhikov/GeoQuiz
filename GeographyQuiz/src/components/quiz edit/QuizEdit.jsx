@@ -4,11 +4,12 @@ import { editQuiz, getQuiz } from "../../services/quizService";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 
+
 export default function QuizEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
-
+  const [errors, setErrors] = useState({});
   const [questions, setQuestions] = useState([]);
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDescription, setDescription] = useState("");
@@ -29,6 +30,7 @@ export default function QuizEdit() {
 
   async function formHandler(e) {
     e.preventDefault();
+    setErrors({}); 
     const quizData = Object.fromEntries(new FormData(e.currentTarget));
 
     const updatedQuestions = [];
@@ -52,13 +54,29 @@ export default function QuizEdit() {
       owner: userId,
     };
 
-    console.log("Sending edited quiz:", editedQuiz);
-
     try {
       await editQuiz(editedQuiz);
       navigate("/");
-    } catch (err) {
-      console.error("Error editing quiz:", err);
+    } catch (error) {
+      const newErrors = {};
+
+      if (error.data?.errors) {
+        error.data.errors.forEach((err) => {
+          const questionMatch = err.match(/Question (\d+): (.+)/);
+          if (questionMatch) {
+            const [, qNum, message] = questionMatch;
+            newErrors[qNum] = newErrors[qNum] || [];
+            newErrors[qNum].push(message);
+          } else {
+            newErrors.general = newErrors.general || [];
+            newErrors.general.push(err);
+          }
+        });
+      } else {
+        newErrors.general = [error.message];
+      }
+
+      setErrors(newErrors);
     }
   }
 
@@ -66,6 +84,16 @@ export default function QuizEdit() {
     <div className="question-generator-container">
       <div className="question-header">
         <h4>Welcome! Here you can edit your quiz:</h4>
+
+        {errors.general && (
+          <div className="error-messages">
+            {errors.general.map((err, i) => (
+              <div key={`general-err-${i}`} className="error-message">
+                {err}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="quiz-settings-card">
@@ -77,6 +105,7 @@ export default function QuizEdit() {
             value={quizTitle}
             onChange={(e) => setQuizTitle(e.target.value)}
             placeholder="Enter quiz title"
+            className={errors.general ? "input-error" : ""}
           />
         </div>
 
@@ -92,19 +121,41 @@ export default function QuizEdit() {
       </div>
 
       <form className="quiz-generator-container" onSubmit={formHandler}>
-        {questions.map((question, index) => (
-          <QuizCreate
-            key={question._id || index}
-            questionNumber={index + 1}
-            initialQuestion={question.question}
-            initialOptionA={question.optionA}
-            initialOptionB={question.optionB}
-            initialOptionC={question.optionC}
-            initialOptionD={question.optionD}
-            initialAnswer={question.answer}
-          />
-        ))}
-        {questions.length > 0 && <button type="submit">Save Changes</button>}
+        {questions.map((question, index) => {
+          const questionNum = index + 1;
+
+          return (
+            <div key={question._id || index} className="quiz-wrapper">
+              <QuizCreate
+                questionNumber={questionNum}
+                initialQuestion={question.question}
+                initialOptionA={question.optionA}
+                initialOptionB={question.optionB}
+                initialOptionC={question.optionC}
+                initialOptionD={question.optionD}
+                initialAnswer={question.answer}
+              />
+
+              {errors[questionNum] && (
+                <div className="question-errors">
+                  {errors[questionNum].map((err, j) => (
+                    <div
+                      key={`q${questionNum}-err-${j}`}
+                      className="error-message"
+                    >
+                      {err}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+        {questions.length > 0 && (
+          <button type="submit" className="submit-btn">
+            Save Changes
+          </button>
+        )}
       </form>
     </div>
   );

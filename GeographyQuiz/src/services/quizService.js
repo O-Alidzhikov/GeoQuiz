@@ -9,11 +9,11 @@ export async function createQuiz(questions) {
       credentials: "include",
     });
 
-    const result = await response.json(); 
+    const result = await response.json();
 
     if (!response.ok) {
       const error = new Error(
-        result.message || result.error || "Quiz creation failed" 
+        result.message || result.error || "Quiz creation failed"
       );
       error.status = response.status;
       error.data = result;
@@ -23,7 +23,7 @@ export async function createQuiz(questions) {
     return result;
   } catch (error) {
     console.error("Error creating quiz:", error.message);
-    throw error; 
+    throw error;
   }
 }
 
@@ -68,15 +68,21 @@ export async function editQuiz(editedQuiz) {
       body: JSON.stringify(editedQuiz),
       credentials: "include",
     });
+    
+    const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
+      const error = new Error(
+        result.message || result.error || "Quiz creation failed"
+      );
+      error.status = response.status;
+      error.data = result;
+      throw error;
     }
 
-    console.log("we did it client side");
-    return await response.json();
+    return result;
   } catch (error) {
-    console.error("Error editing quiz on client side:", error);
+    console.error("Error creating quiz:", error.message);
     throw error;
   }
 }

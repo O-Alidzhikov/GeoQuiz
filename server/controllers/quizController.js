@@ -22,10 +22,14 @@ router.patch("/edit", async (req, res) => {
   console.log(quizData);
 
   try {
+     validateQuestions(quizData.questions); 
     const editedQuiz = await quizService.edit(quizData.id, quizData);
     res.status(201).json(editedQuiz);
   } catch (err) {
-    res.status(500).json({ message: "Failed to edit quiz" });
+      res.status(400).json({
+      message: "Quiz validation failed",
+       errors: err.message.split(" | "),
+    });
   }
 });
 
