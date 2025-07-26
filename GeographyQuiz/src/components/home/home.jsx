@@ -1,4 +1,5 @@
-import './home.css';
+import "./home.css";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -12,21 +13,23 @@ export default function Home() {
         <div className="home-feature-card">
           <h2 className="home-feature-title">Feature One</h2>
           <p className="home-feature-desc">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Users can play map-based quizzes for Europe, Asia, Africa, and South America.
+            When you press play, the name of a country will appear, and you must click on the correct country!
           </p>
         </div>
 
         <div className="home-feature-card">
           <h2 className="home-feature-title">Feature Two</h2>
           <p className="home-feature-desc">
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            There’s a quiz system where you get four answer options—three incorrect and one correct.
+            You also have access to hints like 50/50 and removing one wrong answer.
           </p>
         </div>
 
         <div className="home-feature-card">
           <h2 className="home-feature-title">Feature Three</h2>
           <p className="home-feature-desc">
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Logged-in users can create, edit, and delete their own custom quizzes.
           </p>
         </div>
       </section>
@@ -35,20 +38,20 @@ export default function Home() {
         <h2 className="home-section-title">About The Project</h2>
         <div className="home-about-content">
           <p className="home-about-text">
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            This project was built for fun and to practice key React concepts.
+            I also wanted to build a full-stack application from scratch—handling both the client and the server.
+            I hope you enjoy it!
           </p>
-          <p className="home-about-text">
-          blah blah blah
-          </p>
+          <p className="home-about-text">feel free to test or break the project in any way i want to keep improving my developer skills</p>
         </div>
       </section>
 
       <section className="home-cta">
         <h2 className="home-cta-title">Ready to Get Started?</h2>
-        <p className="home-cta-text">
-          Lorem ipsum
-        </p>
-        <button className="home-cta-button">Sign Up Today</button>
+        <p className="home-cta-text"></p>
+        <Link to="/register">
+          <button className="home-cta-button">Sign Up Today</button>
+        </Link>
       </section>
     </div>
   );
